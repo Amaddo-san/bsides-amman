@@ -14,11 +14,11 @@ export const C = {
 
 // ─── Nav links ──────────────────────────────────────────────────────────────
 export const NAV_LINKS = [
-  { label: "About", href: "/" },
-  { label: "Schedule", href: "/schedule" },
-  { label: "Speakers", href: "/speakers" },
-  { label: "Team", href: "/team" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Sponsors", href: "/sponsors" },
-  { label: "FAQ", href: "/faq" },
+  { label: "About",    href: "/bsides-amman/" },
+  { label: "Schedule", href: "/bsides-amman/schedule" },
+  { label: "Speakers", href: "/bsides-amman/speakers" },
+  { label: "Team",     href: "/bsides-amman/team" },
+  { label: "Gallery",  href: "/bsides-amman/gallery" },
+  { label: "Sponsors", href: "/bsides-amman/sponsors" },
+  { label: "FAQ",      href: "/bsides-amman/faq" },
 ];

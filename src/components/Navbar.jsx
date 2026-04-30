@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, Menu, X } from 'lucide-react';
 import { C, NAV_LINKS } from '../constants';
-import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 
 export default function Navbar() {
@@ -16,7 +15,11 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
+
+  
   return (
+
+    
     <motion.nav
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -44,7 +47,7 @@ export default function Navbar() {
   {NAV_LINKS.map(l => (
     <Link
       key={l.href}
-      to={l.href}
+      href={l.href}
       className="group relative rounded-full px-4 py-2 text-sm font-mono tracking-wide text-zinc-400 transition-all duration-300 hover:text-white"
     >
       <span className="relative z-10">{l.label}</span>
