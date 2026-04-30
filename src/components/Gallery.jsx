@@ -4,20 +4,21 @@ import { X, Play, ChevronLeft, ChevronRight } from 'lucide-react';
 import { C } from '../constants';
 import { FadeIn, Section, SectionHeading } from './Shared';
 
+const base = import.meta.env.BASE_URL;
 const HERO = {
   type: 'image',
-  src: '/img5.png',
+    src: `${base}img5.png`,
   title: 'BSides Amman 2025',
 };
 
 const MEDIA = [
-  { type: 'image', src: '/img1.png', title: 'BSides Amman 2025' },
-  { type: 'image', src: '/img2.png', title: 'Community Moments' },
-  { type: 'image', src: '/img3.png', title: 'Talks & Sessions' },
-  { type: 'image', src: '/img4.png', title: 'Networking' },
-  { type: 'image', src: '/img6.png', title: 'Group Photo' },
-  { type: 'video', src: '/vid1.png.mp4', title: 'Event Highlights' },
-  { type: 'video', src: '/vid3.mb3.mp4', title: 'BSides Moments' },
+  { type: 'image', src: `${base}img1.png`, title: 'BSides Amman 2025' },
+  { type: 'image', src: `${base}img2.png`, title: 'Community Moments' },
+  { type: 'image', src: `${base}img3.png`, title: 'Talks & Sessions' },
+  { type: 'image', src: `${base}img4.png`, title: 'Networking' },
+  { type: 'image', src: `${base}img6.png`, title: 'Group Photo' },
+  { type: 'video', src: `${base}vid1.png.mp4`, title: 'Event Highlights' },
+  { type: 'video', src: `${base}vid3.mb3.mp4`, title: 'BSides Moments' },
 ];
 
 const ALL_MEDIA = [HERO, ...MEDIA];
