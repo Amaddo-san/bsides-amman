@@ -3,21 +3,24 @@ import { Linkedin } from 'lucide-react';
 import { C } from '../constants';
 import { FadeIn, Section, SectionHeading } from './Shared';
 
+
+const img = (name) => `${import.meta.env.BASE_URL}${name}`;
+
 const TEAM = [
-  { name: 'Mohammad Al-Adwan', role: 'Lead Organizer', photo: '/adwan.jpg', linkedin: 'https://www.linkedin.com/in/mohammad-al-adwan-9a6457260?utm_source=share_via&utm_content=profile&utm_medium=member_ios#' },
-  { name: 'Laila Alzoubi', role: 'Advisor', photo: '/layla.jpg', linkedin: 'https://www.linkedin.com/in/laylaalzoubi?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
-  { name: 'Rami Ahmad', role: 'Advisor', photo: '/rami.jpg', linkedin: 'https://www.linkedin.com/in/ramiahmad?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
-  { name: 'Abdallah Al-Abbadi', role: 'Advisor', photo: '/abdnawaf.jpg', linkedin: 'https://www.linkedin.com/in/abdullah-nawaf-6ab7301b0?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
-  { name: 'Orwa Atyat', role: 'Advisor', photo: '/urwah.jpg', linkedin: 'https://www.linkedin.com/in/urwah-atiyat-1b9800198?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
-  { name: 'Abdalhameed Dradkeh', role: 'Organizer', photo: '/abd.jpg', linkedin: 'https://www.linkedin.com/in/abdalhmeeddradkeh?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
-  { name: 'Hamza Nour', role: 'Organizer', photo: '/hamza.jpg', linkedin: 'https://www.linkedin.com/in/hussein-abuali?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
-  { name: 'Hussein Abu Ali', role: 'Organizer', photo: '/hussen.jpg', linkedin: 'https://www.linkedin.com/in/hussein-abuali?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
-  { name: 'Abdulrahman Nahhas', role: 'Organizer', photo: '/nahhas.jpg', linkedin: 'https://www.linkedin.com/in/abdelrahman-al-nahhas-a48564208?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
-  { name: 'Yousof Nahya', role: 'Organizer', photo: '/yousof.jpg', linkedin: 'https://www.linkedin.com/in/yousof-nahya?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
-  { name: 'Farah Qamhawi', role: 'Oraganizer', photo: '/farah.jpg', linkedin: 'https://www.linkedin.com/in/farah-qamhawi?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
-  { name: 'Lana Barakat', role: 'Organizer', photo: '/lana.jpg', linkedin: 'https://www.linkedin.com/in/lana-barakat-748a7b241?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
-  { name: 'Shahed Mehdawi', role: 'Media', photo: '/shahed.jpg', linkedin: 'https://www.linkedin.com/in/shahedmehdawi?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
-  { name: 'Ahmad Abu Tair', role: 'Media', photo: '/ahmad.jpg', linkedin: 'https://www.linkedin.com/in/ahmad-abu-tair-935209311?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
+  { name: 'Mohammad Al-Adwan', role: 'Lead Organizer', photo: img('adwan.jpg'), linkedin: 'https://www.linkedin.com/in/mohammad-al-adwan-9a6457260?utm_source=share_via&utm_content=profile&utm_medium=member_ios#' },
+  { name: 'Laila Alzoubi', role: 'Advisor', photo: img('layla.jpg'), linkedin: 'https://www.linkedin.com/in/laylaalzoubi?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
+  { name: 'Rami Ahmad', role: 'Advisor', photo: img('rami.jpg'), linkedin: 'https://www.linkedin.com/in/ramiahmad?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
+  { name: 'Abdallah Al-Abbadi', role: 'Advisor', photo: img('abdnawaf.jpg'), linkedin: 'https://www.linkedin.com/in/abdullah-nawaf-6ab7301b0?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
+  { name: 'Orwa Atyat', role: 'Advisor', photo: img('urwah.jpg'), linkedin: 'https://www.linkedin.com/in/urwah-atiyat-1b9800198?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
+  { name: 'Abdalhameed Dradkeh', role: 'Organizer', photo: img('abd.jpg'), linkedin: 'https://www.linkedin.com/in/abdalhmeeddradkeh?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
+  { name: 'Hamza Nour', role: 'Organizer', photo: img('hamza.jpg'), linkedin: 'https://www.linkedin.com/in/hussein-abuali?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
+  { name: 'Hussein Abu Ali', role: 'Organizer', photo: img('hussen.jpg'), linkedin: 'https://www.linkedin.com/in/hussein-abuali?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
+  { name: 'Abdulrahman Nahhas', role: 'Organizer', photo: img('nahhas.jpg'), linkedin: 'https://www.linkedin.com/in/abdelrahman-al-nahhas-a48564208?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
+  { name: 'Yousof Nahya', role: 'Organizer', photo: img('yousof.jpg'), linkedin: 'https://www.linkedin.com/in/yousof-nahya?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
+  { name: 'Farah Qamhawi', role: 'Organizer', photo: img('farah.jpg'), linkedin: 'https://www.linkedin.com/in/farah-qamhawi?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
+  { name: 'Lana Barakat', role: 'Organizer', photo: img('lana.jpg'), linkedin: 'https://www.linkedin.com/in/lana-barakat-748a7b241?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
+  { name: 'Shahed Mehdawi', role: 'Media', photo: img('shahed.jpg'), linkedin: 'https://www.linkedin.com/in/shahedmehdawi?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
+  { name: 'Ahmad Abu Tair', role: 'Media', photo: img('ahmad.jpg'), linkedin: 'https://www.linkedin.com/in/ahmad-abu-tair-935209311?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
 ];
 
 const ROLE_STYLES = {
