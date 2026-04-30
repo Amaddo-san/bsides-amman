@@ -45,7 +45,7 @@ export default function Navbar() {
        {/* Desktop links */}
 <div className="hidden md:flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-2 py-2 backdrop-blur-xl">
   {NAV_LINKS.map(l => (
-    <Link
+    <a
       key={l.href}
       href={l.href}
       className="group relative rounded-full px-4 py-2 text-sm font-mono tracking-wide text-zinc-400 transition-all duration-300 hover:text-white"
@@ -55,7 +55,7 @@ export default function Navbar() {
       <span className="absolute inset-0 rounded-full bg-white/[0.06] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
       <span className="absolute bottom-1 left-1/2 h-[2px] w-0 -translate-x-1/2 rounded-full bg-red-500 transition-all duration-300 group-hover:w-6" />
-    </Link>
+    </a>
   ))}
 
   <a
