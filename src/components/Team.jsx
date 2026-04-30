@@ -4,8 +4,7 @@ import { C } from '../constants';
 import { FadeIn, Section, SectionHeading } from './Shared';
 
 
-const img = (name) => `${import.meta.env.BASE_URL}${name}`;
-
+const img = (name) => `${import.meta.env.BASE_URL}assets/${name}`;
 const TEAM = [
   { name: 'Mohammad Al-Adwan', role: 'Lead Organizer', photo: img('adwan.jpg'), linkedin: 'https://www.linkedin.com/in/mohammad-al-adwan-9a6457260?utm_source=share_via&utm_content=profile&utm_medium=member_ios#' },
   { name: 'Laila Alzoubi', role: 'Advisor', photo: img('layla.jpg'), linkedin: 'https://www.linkedin.com/in/laylaalzoubi?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
