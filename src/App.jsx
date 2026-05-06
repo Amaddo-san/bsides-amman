@@ -23,7 +23,7 @@ function HomePage() {
 
 export default function App() {
   return (
-    <BrowserRouter  basename={import.meta.env.BASE_URL}>
+    <BrowserRouter >
           <div className="min-h-screen flex flex-col bg-[#05070D]">
 
       <Navbar />
