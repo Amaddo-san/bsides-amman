@@ -97,12 +97,15 @@ export default function Navbar() {
     </a>
   ))}
 
-  <a
-    href="mailto:info@bsidesamman.org"
-    className="mt-2 rounded-xl bg-red-600 px-4 py-3 text-center text-sm font-mono font-bold text-white shadow-[0_0_20px_rgba(220,38,38,0.35)] transition-all duration-300 hover:bg-red-500"
-  >
-    Register →
-  </a>
+ <a
+  href="https://docs.google.com/forms/d/e/1FAIpQLSe5WdkDYhMmDKODqt65zJa0tlV_VX6C0XR_kAR1B9EEkcK5zQ/viewform?usp=publish-editor"
+  target="_blank"
+  rel="noreferrer"
+  className="mt-2 rounded-xl bg-red-600 px-4 py-3 text-center text-sm font-mono font-bold text-white shadow-[0_0_20px_rgba(220,38,38,0.35)] transition-all duration-300 hover:bg-red-500"
+>
+  Register →
+</a>
+
 </div>
           </motion.div>
         )}
