@@ -1,11 +1,8 @@
 {
-  "installCommand": "npm install --prefix bsides-amman",
-  "buildCommand": "npm run build --prefix bsides-amman",
-  "outputDirectory": "bsides-amman/dist",
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "destination": "/"
     }
   ]
 }
