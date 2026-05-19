@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion';
-import { Lock, Radio, Shield, Terminal, UserRound } from 'lucide-react';
+import { CalendarClock, Mail, Mic2, UserRound } from 'lucide-react';
 import { C } from '../constants';
 import { FadeIn, Section, SectionHeading } from './Shared';
 
-const SPEAKER_TOPICS = [
-  { title: 'Red Team', color: '#ef4444' },
-  { title: 'Blue Team', color: '#22d3ee' },
-  { title: 'Cloud Security', color: '#a855f7' },
-  { title: 'GRC', color: '#facc15' },
+const SPEAKER_CARDS = [
+  { topic: 'Keynote Speaker', track: 'Main Stage' },
+  { topic: 'Technical Speaker', track: 'Research Track' },
+  { topic: 'Workshop Lead', track: 'Hands-on Lab' },
+  { topic: 'Community Speaker', track: 'Community Track' },
 ];
 
 export default function Speakers() {
@@ -15,125 +15,148 @@ export default function Speakers() {
     <Section
       id="speakers"
       style={{
-        background: 'radial-gradient(circle at top, #0a0f1a 0%, #05070D 55%, #000 100%)',
+        background: 'linear-gradient(180deg, #080b11 0%, #05070D 52%, #07090f 100%)',
       }}
     >
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-70">
         <div
-          className="absolute inset-0 opacity-[0.14]"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)
-            `,
-            backgroundSize: '44px 44px',
-          }}
+          className="absolute inset-x-0 top-0 h-px"
+          style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.16), transparent)' }}
         />
         <div
-          className="absolute left-1/2 top-20 h-[420px] w-[420px] -translate-x-1/2 rounded-full blur-[100px]"
-          style={{ background: 'rgba(34,211,238,0.12)' }}
+          className="absolute left-1/2 top-28 h-64 w-[620px] -translate-x-1/2 rounded-full blur-[120px]"
+          style={{ background: 'rgba(206,32,40,0.08)' }}
         />
       </div>
 
-      <div className="relative z-10">
+      <div className="relative z-10 mx-auto max-w-7xl">
         <SectionHeading
           label="04 / Speakers"
-          title="Speaker Lineup Loading"
-          subtitle="Our speaker lineup is being curated. Expect technical talks, real-world cybersecurity stories, and community-driven sessions from different security domains."
+          title="Speakers"
+          subtitle="The speaker lineup is currently being finalized. Confirmed speakers and session information will be published soon."
         />
 
         <FadeIn>
           <div
-            className="mx-auto mb-10 max-w-3xl overflow-hidden rounded-2xl border p-5"
+            className="mx-auto mb-10 flex max-w-3xl flex-col gap-4 rounded-lg border px-5 py-5 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left"
             style={{
-              background: 'rgba(5,7,13,0.72)',
-              borderColor: C.border,
+              background: 'rgba(255,255,255,0.025)',
+              borderColor: 'rgba(255,255,255,0.09)',
             }}
           >
-            <div className="mb-4 flex items-center gap-3 font-mono text-xs" style={{ color: C.red }}>
-              <Terminal size={16} />
-              <span>SPEAKER_DATABASE: ENCRYPTED</span>
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em]" style={{ color: C.red }}>
+                Speaker lineup
+              </p>
+              <p className="mt-2 text-sm leading-6" style={{ color: C.muted }}>
+                Profiles, photos, and talk titles are under review.
+              </p>
             </div>
 
-            <div className="space-y-2 font-mono text-xs" style={{ color: C.dim }}>
-              <p>&gt; scanning submissions... pending</p>
-              <p>&gt; validating sessions... pending</p>
-              <p>&gt; decrypting speaker identities... soon</p>
-              <p>&gt; announcement status: standby</p>
+            <div
+              className="mx-auto inline-flex items-center gap-2 rounded-full border px-4 py-2 font-mono text-[10px] uppercase tracking-[0.14em] sm:mx-0"
+              style={{
+                borderColor: 'rgba(255,255,255,0.1)',
+                color: C.muted,
+                background: 'rgba(255,255,255,0.03)',
+              }}
+            >
+              <CalendarClock size={14} style={{ color: C.red }} />
+              Coming soon
             </div>
           </div>
         </FadeIn>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {SPEAKER_TOPICS.map((topic, i) => (
-            <FadeIn key={topic.title} delay={i * 0.06}>
+          {SPEAKER_CARDS.map((speaker, i) => (
+            <FadeIn key={speaker.topic} delay={i * 0.05}>
               <motion.div
                 whileHover={{
-                  y: -8,
-                  boxShadow: `0 0 24px ${topic.color}55`,
-                  borderColor: topic.color,
+                  y: -6,
+                  borderColor: 'rgba(255,255,255,0.18)',
+                  backgroundColor: 'rgba(255,255,255,0.045)',
                 }}
-                transition={{ duration: 0.25 }}
-                className="group relative overflow-hidden rounded-2xl border p-6 text-center"
+                transition={{ duration: 0.22 }}
+                className="group h-full overflow-hidden rounded-lg border p-5"
                 style={{
-                  background: 'rgba(10,15,25,0.68)',
-                  borderColor: 'rgba(255,255,255,0.1)',
+                  background: 'rgba(255,255,255,0.026)',
+                  borderColor: 'rgba(255,255,255,0.09)',
                 }}
               >
                 <div
-                  className="absolute left-0 top-0 h-[2px] w-full"
+                  className="aspect-[4/3] w-full overflow-hidden rounded-md border"
                   style={{
-                    background: `linear-gradient(90deg, transparent, ${topic.color}, transparent)`,
-                  }}
-                />
-
-                <div
-                  className="mx-auto mb-5 flex h-24 w-24 items-center justify-center rounded-full border"
-                  style={{
-                    borderColor: topic.color,
-                    color: topic.color,
-                    boxShadow: `0 0 22px ${topic.color}44`,
-                    background: 'rgba(255,255,255,0.03)',
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))',
+                    borderColor: 'rgba(255,255,255,0.08)',
                   }}
                 >
-                  <UserRound size={34} />
+                  <div className="flex h-full items-center justify-center">
+                    <div
+                      className="flex h-20 w-20 items-center justify-center rounded-full border"
+                      style={{
+                        background: 'rgba(5,7,13,0.54)',
+                        borderColor: 'rgba(255,255,255,0.12)',
+                        color: 'rgba(255,255,255,0.5)',
+                      }}
+                    >
+                      <UserRound size={34} strokeWidth={1.6} />
+                    </div>
+                  </div>
                 </div>
 
-                <div className="mb-4 flex justify-center">
-                  <span
-                    className="inline-flex items-center gap-1 rounded-full border px-3 py-1 font-mono text-[10px]"
-                    style={{
-                      borderColor: topic.color,
-                      color: topic.color,
-                    }}
-                  >
-                    <Lock size={11} />
-                    CLASSIFIED SPEAKER
-                  </span>
+                <div className="pt-5">
+                  <div className="mb-3 flex items-center justify-between gap-3">
+                    <span
+                      className="rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-[0.12em]"
+                      style={{
+                        borderColor: 'rgba(206,32,40,0.28)',
+                        color: 'rgba(248,113,113,0.9)',
+                        background: 'rgba(206,32,40,0.08)',
+                      }}
+                    >
+                      {speaker.track}
+                    </span>
+                    <Mic2 size={16} style={{ color: 'rgba(255,255,255,0.32)' }} />
+                  </div>
+
+                  <h3 className="text-lg font-bold" style={{ color: C.white }}>
+                    {speaker.topic}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6" style={{ color: C.dim }}>
+                    Speaker profile will be announced soon.
+                  </p>
                 </div>
-
-                <h3 className="mb-2 text-lg font-bold" style={{ color: C.white }}>
-                  {topic.title}
-                </h3>
-
-                <p className="mx-auto max-w-[220px] text-sm leading-relaxed" style={{ color: C.dim }}>
-                  Speaker details will be revealed once the official lineup is announced.
-                </p>
-
-                <div className="mt-5 flex items-center justify-center gap-2 font-mono text-xs" style={{ color: topic.color }}>
-                  <Radio size={13} />
-                  Access pending
-                </div>
-
-                <Shield
-                  size={90}
-                  className="absolute -bottom-8 -right-8 opacity-[0.04]"
-                  style={{ color: topic.color }}
-                />
               </motion.div>
             </FadeIn>
           ))}
         </div>
+
+        <FadeIn delay={0.12}>
+          <div
+            className="mx-auto mt-10 flex max-w-3xl flex-col items-center justify-between gap-4 rounded-lg border px-5 py-5 text-center sm:flex-row sm:text-left"
+            style={{
+              background: 'rgba(206,32,40,0.045)',
+              borderColor: 'rgba(206,32,40,0.18)',
+            }}
+          >
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.22em]" style={{ color: C.red }}>
+                Become a speaker
+              </p>
+              <p className="mt-2 text-sm leading-6" style={{ color: C.muted }}>
+                Have a talk, workshop, or research story to share with the community?
+              </p>
+            </div>
+
+            <a
+              href="mailto:contact@bsidesamman.org?subject=BSides%20Amman%20Speaker%20Submission"
+              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#c81e1e] px-5 py-3 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-white transition hover:bg-[#a01515]"
+            >
+              <Mail size={14} />
+              Contact us
+            </a>
+          </div>
+        </FadeIn>
       </div>
     </Section>
   );

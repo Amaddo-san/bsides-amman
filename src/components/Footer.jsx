@@ -78,7 +78,7 @@ export default function Footer() {
               Contact
             </h4>
             <motion.a
-              href="mailto:info@bsidesamman.org"
+              href="mailto:contact@bsidesamman.org"
               className="flex items-center gap-2 text-sm font-mono mb-3 transition-colors duration-200 hover:text-white"
               style={{ color: C.muted }}
               whileHover={{ color: C.red }}
@@ -86,14 +86,14 @@ export default function Footer() {
             >
               <Mail size={14} style={{ color: C.red }} 
 />
-              info@bsidesamman.org
+              contact@bsidesamman.org
             </motion.a>
             <div
               className="flex items-start gap-2 text-sm font-mono"
               style={{ color: C.muted }}
             >
               <MapPin size={14} className="shrink-0 mt-0.5" style={{ color: C.red }} />
-we ddont know            </div>
+we dont know            </div>
           </div>
         </div>
 

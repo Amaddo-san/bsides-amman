@@ -1,16 +1,44 @@
-import { motion } from 'framer-motion';
-import { Lock, Terminal, Radio, Mic, Hammer, Trophy, Users } from 'lucide-react';
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { CalendarDays, Clock, MapPin, Radio, ShieldCheck } from 'lucide-react';
 import { C } from '../constants';
 import { FadeIn, Section, SectionHeading } from './Shared';
 
-const TEASERS = [
-  { title: 'Keynotes', desc: 'Main-stage cybersecurity talks.', icon: Mic, color: '#ef4444' },
-  { title: 'Workshops', desc: 'Hands-on technical sessions.', icon: Hammer, color: '#22d3ee' },
-  { title: 'CTF Challenges', desc: 'Competitive hacking activities.', icon: Trophy, color: '#a855f7' },
-  { title: 'Networking', desc: 'Community, booths, and connections.', icon: Users, color: '#facc15' },
+const DAYS = [
+  {
+    id: 'day-1',
+    label: 'First Day',
+    date: 'Day 01',
+    status: 'Schedule under process',
+    accent: '#ef4444',
+    location: 'Rooms TBA',
+    events: [
+      { time: '--:--', title: 'Loading schedule block', desc: 'Day one timeline is being prepared.' },
+      { time: '--:--', title: 'Session details pending', desc: 'Talks, rooms, and timing will be announced soon.' },
+      { time: '--:--', title: 'Workshop queue syncing', desc: 'Workshop information is still under process.' },
+      { time: '--:--', title: 'Community slots loading', desc: 'More day one activities are coming soon.' },
+    ],
+  },
+  {
+    id: 'day-2',
+    label: 'Second Day',
+    date: 'Day 02',
+    status: 'Schedule under process',
+    accent: '#22d3ee',
+    location: 'Rooms TBA',
+    events: [
+      { time: '--:--', title: 'Loading schedule block', desc: 'Day two timeline is being prepared.' },
+      { time: '--:--', title: 'Session details pending', desc: 'Activities, rooms, and timing will be announced soon.' },
+      { time: '--:--', title: 'Challenge queue syncing', desc: 'Competition information is still under process.' },
+      { time: '--:--', title: 'Closing slots loading', desc: 'More day two updates are coming soon.' },
+    ],
+  },
 ];
 
 export default function Schedule() {
+  const [activeDayId, setActiveDayId] = useState(DAYS[0].id);
+  const activeDay = DAYS.find((day) => day.id === activeDayId) || DAYS[0];
+
   return (
     <Section
       id="schedule"
@@ -39,93 +67,161 @@ export default function Schedule() {
       <div className="relative z-10">
         <SectionHeading
           label="03 / Schedule"
-          title="Schedule Is Loading"
-          subtitle="The full BSidesAmman 2026 agenda is currently being prepared. Talks, workshops, CTF activities, and community sessions will be announced soon."
+          title="Two-Day Schedule"
+          subtitle="Choose a conference day to view the current schedule status. The full agenda is still being prepared and will be announced soon."
         />
 
         <FadeIn>
-          <div
-            className="mx-auto mb-10 max-w-3xl overflow-hidden rounded-2xl border p-5"
-            style={{
-              background: 'rgba(5,7,13,0.72)',
-              borderColor: C.border,
-            }}
-          >
-            <div className="mb-4 flex items-center gap-3 font-mono text-xs" style={{ color: C.red }}>
-              <Terminal size={16} />
-              <span>SCHEDULE_STATUS: CLASSIFIED</span>
-            </div>
+          <div className="mx-auto max-w-5xl">
+            <div className="grid gap-4 md:grid-cols-2">
+              {DAYS.map((day) => {
+                const isActive = activeDay.id === day.id;
 
-            <div className="space-y-2 font-mono text-xs" style={{ color: C.dim }}>
-              <p>&gt; initializing agenda.exe</p>
-              <p>&gt; loading speakers... pending</p>
-              <p>&gt; syncing workshops... pending</p>
-              <p>&gt; release date: coming soon</p>
+                return (
+                  <motion.button
+                    key={day.id}
+                    type="button"
+                    onClick={() => setActiveDayId(day.id)}
+                    whileHover={{ y: -5 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="group relative overflow-hidden rounded-lg border p-5 text-left transition duration-300 sm:p-6"
+                    style={{
+                      background: isActive ? 'rgba(12,18,30,0.9)' : 'rgba(8,12,21,0.72)',
+                      borderColor: isActive ? day.accent : 'rgba(255,255,255,0.1)',
+                      boxShadow: isActive ? `0 0 28px ${day.accent}33` : 'none',
+                    }}
+                    aria-pressed={isActive}
+                  >
+                    <div
+                      className="absolute left-0 top-0 h-[2px] w-full"
+                      style={{ background: `linear-gradient(90deg, transparent, ${day.accent}, transparent)` }}
+                    />
+                    <div
+                      className="pointer-events-none absolute -right-10 -top-16 h-36 w-36 rounded-full blur-3xl transition-opacity"
+                      style={{ background: day.accent, opacity: isActive ? 0.16 : 0.07 }}
+                    />
+
+                    <div className="relative flex items-start justify-between gap-4">
+                      <div>
+                        <p className="font-mono text-[10px] uppercase tracking-[0.24em]" style={{ color: day.accent }}>
+                          {day.date}
+                        </p>
+                        <h3
+                          className="mt-3 text-3xl font-black uppercase sm:text-4xl"
+                          style={{ fontFamily: "'Bebas Neue', cursive", color: C.white }}
+                        >
+                          {day.label}
+                        </h3>
+                      </div>
+
+                      <div
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border"
+                        style={{
+                          borderColor: day.accent,
+                          color: day.accent,
+                          boxShadow: isActive ? `0 0 18px ${day.accent}55` : 'none',
+                        }}
+                      >
+                        <CalendarDays size={20} />
+                      </div>
+                    </div>
+
+                    <div className="relative mt-6 grid gap-3 font-mono text-[11px] uppercase tracking-[0.12em] text-zinc-500 sm:grid-cols-2">
+                      <span className="flex items-center gap-2">
+                        <Radio size={13} style={{ color: day.accent }} />
+                        {day.status}
+                      </span>
+                      <span className="flex items-center gap-2 sm:justify-end">
+                        <MapPin size={13} style={{ color: day.accent }} />
+                        {day.location}
+                      </span>
+                    </div>
+                  </motion.button>
+                );
+              })}
             </div>
           </div>
         </FadeIn>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {TEASERS.map((item, i) => {
-            const Icon = item.icon;
+        <FadeIn delay={0.08}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeDay.id}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -14 }}
+              transition={{ duration: 0.28 }}
+              className="mx-auto mt-6 max-w-5xl overflow-hidden rounded-lg border"
+              style={{
+                background: 'rgba(5,7,13,0.82)',
+                borderColor: 'rgba(255,255,255,0.1)',
+                boxShadow: `0 0 42px ${activeDay.accent}1f`,
+              }}
+            >
+              <div className="border-b border-white/[0.08] p-5 sm:p-6">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.24em]" style={{ color: activeDay.accent }}>
+                      Timeline Details
+                    </p>
+                    <h3
+                      className="mt-2 text-3xl font-black uppercase sm:text-4xl"
+                      style={{ fontFamily: "'Bebas Neue', cursive", color: C.white }}
+                    >
+                      {activeDay.label}
+                    </h3>
+                  </div>
 
-            return (
-              <FadeIn key={item.title} delay={i * 0.06}>
-                <motion.div
-                  whileHover={{
-                    y: -8,
-                    boxShadow: `0 0 24px ${item.color}55`,
-                    borderColor: item.color,
-                  }}
-                  transition={{ duration: 0.25 }}
-                  className="group relative overflow-hidden rounded-2xl border p-6"
-                  style={{
-                    background: 'rgba(10,15,25,0.68)',
-                    borderColor: 'rgba(255,255,255,0.1)',
-                  }}
-                >
+                  <div className="flex flex-wrap gap-2 font-mono text-[10px] uppercase tracking-[0.14em]">
+                    <span className="inline-flex items-center gap-2 border border-white/10 bg-white/[0.03] px-3 py-2 text-zinc-400">
+                      <ShieldCheck size={13} style={{ color: activeDay.accent }} />
+                      Under process
+                    </span>
+                    <span className="inline-flex items-center gap-2 border border-white/10 bg-white/[0.03] px-3 py-2 text-zinc-400">
+                      <MapPin size={13} style={{ color: activeDay.accent }} />
+                      {activeDay.location}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-5 sm:p-6">
+                <div className="relative">
                   <div
-                    className="absolute left-0 top-0 h-[2px] w-full"
-                    style={{
-                      background: `linear-gradient(90deg, transparent, ${item.color}, transparent)`,
-                    }}
+                    className="absolute bottom-5 left-[58px] top-5 hidden w-px sm:block"
+                    style={{ background: `linear-gradient(${activeDay.accent}, rgba(255,255,255,0.08))` }}
                   />
 
-                  <div className="mb-6 flex items-center justify-between">
-                    <div
-                      className="flex h-11 w-11 items-center justify-center rounded-xl border"
-                      style={{
-                        borderColor: item.color,
-                        color: item.color,
-                        boxShadow: `0 0 16px ${item.color}44`,
-                      }}
-                    >
-                      <Icon size={19} />
-                    </div>
+                  <div className="space-y-4">
+                    {activeDay.events.map((event, index) => (
+                      <div key={`${activeDay.id}-${event.time}`} className="relative grid gap-3 sm:grid-cols-[116px_1fr]">
+                        <div className="flex items-center gap-3 font-mono text-xs" style={{ color: activeDay.accent }}>
+                          <span className="hidden h-3 w-3 rounded-full border bg-[#05070D] sm:block" style={{ borderColor: activeDay.accent }} />
+                          <Clock size={14} />
+                          {event.time}
+                        </div>
 
-                    <div className="flex items-center gap-1 font-mono text-[10px]" style={{ color: C.dim }}>
-                      <Lock size={12} />
-                      LOCKED
-                    </div>
+                        <motion.div
+                          initial={{ opacity: 0, x: 10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.04 }}
+                          className="border border-white/[0.08] bg-white/[0.025] p-4"
+                        >
+                          <h4 className="text-base font-bold" style={{ color: C.white }}>
+                            {event.title}
+                          </h4>
+                          <p className="mt-2 text-sm leading-6" style={{ color: C.dim }}>
+                            {event.desc}
+                          </p>
+                        </motion.div>
+                      </div>
+                    ))}
                   </div>
-
-                  <h3 className="mb-2 text-lg font-bold" style={{ color: C.white }}>
-                    {item.title}
-                  </h3>
-
-                  <p className="text-sm leading-relaxed" style={{ color: C.dim }}>
-                    {item.desc}
-                  </p>
-
-                  <div className="mt-5 flex items-center gap-2 font-mono text-xs" style={{ color: item.color }}>
-                    <Radio size={13} />
-                    Access pending
-                  </div>
-                </motion.div>
-              </FadeIn>
-            );
-          })}
-        </div>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </FadeIn>
       </div>
     </Section>
   );

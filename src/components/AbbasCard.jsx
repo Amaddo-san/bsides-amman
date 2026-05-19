@@ -51,7 +51,10 @@ const handleMouseLeave = () => {
       <div className="relative z-10">
         <div className="mb-5 flex items-center justify-between text-xs font-mono text-zinc-400">
           <span>ABBAS_ASSISTANT</span>
-          <span className="rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1 text-green-400">
+          <span
+            data-abbas-online-badge
+            className="rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1 text-green-400"
+          >
             ONLINE
           </span>
         </div>

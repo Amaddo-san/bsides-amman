@@ -14,7 +14,7 @@ export const C = {
 
 // ─── Nav links ──────────────────────────────────────────────────────────────
 export const NAV_LINKS = [
-  { label: "About", href: "/" },
+  { label: "About", href: "/about" },
   { label: "Schedule", href: "/schedule" },
   { label: "Speakers", href: "/speakers" },
   { label: "Team", href: "/team" },

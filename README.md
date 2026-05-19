@@ -94,5 +94,5 @@ npm run build
 
 ## Contact
 
-**info@bsidesamman.org**
+**contact@bsidesamman.org**
 Applied Science University, Amman, Jordan
