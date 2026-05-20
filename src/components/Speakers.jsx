@@ -73,30 +73,27 @@ export default function Speakers() {
               <motion.div
                 whileHover={{
                   y: -6,
-                  borderColor: 'rgba(255,255,255,0.18)',
-                  backgroundColor: 'rgba(255,255,255,0.045)',
+                  borderColor: 'rgba(255,255,255,0.24)',
+                  boxShadow:
+                    'inset 0 1px 0 rgba(255,255,255,0.22), 0 30px 70px rgba(0,0,0,0.36), 0 0 34px rgba(206,32,40,0.12)',
                 }}
                 transition={{ duration: 0.22 }}
-                className="group h-full overflow-hidden rounded-lg border p-5"
-                style={{
-                  background: 'rgba(255,255,255,0.026)',
-                  borderColor: 'rgba(255,255,255,0.09)',
-                }}
+                className="speaker-glass-card group h-full overflow-hidden rounded-lg border p-5"
               >
                 <div
-                  className="aspect-[4/3] w-full overflow-hidden rounded-md border"
+                  className="speaker-portrait-glass aspect-[4/3] w-full overflow-hidden rounded-md border"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))',
-                    borderColor: 'rgba(255,255,255,0.08)',
+                    borderColor: 'rgba(255,255,255,0.13)',
                   }}
                 >
-                  <div className="flex h-full items-center justify-center">
+                  <div className="relative z-10 flex h-full items-center justify-center">
                     <div
-                      className="flex h-20 w-20 items-center justify-center rounded-full border"
+                      className="flex h-20 w-20 items-center justify-center rounded-full border shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] transition duration-300 group-hover:scale-105"
                       style={{
-                        background: 'rgba(5,7,13,0.54)',
-                        borderColor: 'rgba(255,255,255,0.12)',
-                        color: 'rgba(255,255,255,0.5)',
+                        background: 'rgba(5,7,13,0.46)',
+                        borderColor: 'rgba(255,255,255,0.2)',
+                        color: 'rgba(255,255,255,0.58)',
+                        backdropFilter: 'blur(10px)',
                       }}
                     >
                       <UserRound size={34} strokeWidth={1.6} />

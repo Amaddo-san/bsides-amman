@@ -1,26 +1,72 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Building2, Handshake, Mail } from 'lucide-react';
+import { ArrowRight, Handshake, Mail } from 'lucide-react';
 import { C } from '../constants';
 import { FadeIn, Section, SectionHeading } from './Shared';
 
 const TIERS = [
   {
-    tier: 'Platinum',
-    color: '#e8e8e8',
-    summary: 'Maximum visibility for organizations supporting the main conference experience.',
-    benefits: ['Main-stage recognition', 'Premium logo placement', 'Sponsor table space'],
+    tier: 'Diamond',
+    price: '2500$',
+    color: '#7dd3fc',
+    summary: 'Maximum visibility across talks, event materials, booths, and social media.',
+    benefits: [
+      'Recognition in the event opening talks and between sessions',
+      'Largest booth available during the event',
+      '10 VIP seats',
+      "Registration bag swag participation. You provide the swag, and we'll take care of the rest",
+      'Largest size logo on the ticket, website, organizer t-shirts, and social media posts',
+      'Mention in all social media posts',
+      'Thank you post on social media accounts',
+      'Strong promotional presence through BSidesAmman community visibility',
+    ],
   },
   {
     tier: 'Gold',
     color: C.amber,
-    summary: 'Strong presence across event communications, community moments, and venue areas.',
-    benefits: ['Website logo placement', 'Social announcement', 'Community booth option'],
+    price: '1500$',
+    summary: 'High-impact sponsor presence throughout the event and communication channels.',
+    benefits: [
+      'Recognition in the event opening talks and between sessions',
+      'Booth available during the event',
+      '5 VIP seats',
+      "Registration bag swag participation. You provide the swag, and we'll take care of the rest",
+      'Logo on the ticket, website, organizer t-shirts, and social media posts',
+      'Mention in all social media posts',
+      'Thank you post on social media accounts',
+      'Strong promotional presence through BSidesAmman community visibility',
+    ],
   },
   {
-    tier: 'Community',
-    color: C.green,
-    summary: 'For local communities, nonprofits, student groups, and ecosystem partners.',
-    benefits: ['Community partner listing', 'Shared table presence', 'Event-day mention'],
+    tier: 'Silver',
+    color: '#cbd5e1',
+    price: '1000$',
+    summary: 'A practical package for visible support during the event and online promotion.',
+    benefits: [
+      'Recognition in the event opening talks and between sessions',
+      'Small booth available during the event',
+      '3 VIP seats',
+      "Registration bag swag participation. You provide the swag, and we'll take care of the rest",
+      'Small size logo on the ticket, website, organizer t-shirts, and social media posts',
+      'Mention in all social media posts',
+      'Thank you post on social media accounts',
+      'Strong promotional presence through BSidesAmman community visibility',
+    ],
+  },
+  {
+    tier: 'Bronze',
+    color: '#d97706',
+    price: '500$',
+    summary: 'An accessible sponsorship option for supporting the BSides Amman community.',
+    benefits: [
+      'Recognition in the event opening talks and between sessions',
+      'Booth available during the event',
+      '2 VIP seats',
+      "Registration bag swag participation. You provide the swag, and we'll take care of the rest",
+      'Small logo on the ticket, website, organizer t-shirts, and social media posts',
+      'Mention in all social media posts',
+      'Thank you post on social media accounts',
+      'Strong promotional presence through BSidesAmman community visibility',
+    ],
   },
 ];
 
@@ -59,18 +105,18 @@ function TierCard({ tier, index }) {
                 {tier.tier}
               </p>
               <h3 className="mt-2 text-xl font-bold" style={{ color: C.white }}>
-                Sponsor Package
+                Sponsor Tier
               </h3>
             </div>
             <div
-              className="flex h-10 w-10 items-center justify-center rounded-lg border"
+              className="flex h-10 min-w-20 items-center justify-center rounded-lg border px-3 font-mono text-sm font-bold"
               style={{
                 color: tier.color,
                 borderColor: `${tier.color}55`,
                 background: `${tier.color}0d`,
               }}
             >
-              <Building2 size={18} />
+              {tier.price}
             </div>
           </div>
 
@@ -96,7 +142,12 @@ function TierCard({ tier, index }) {
 
 export default function Sponsors() {
   return (
-    <Section id="sponsors" style={{ background: C.bg }}>
+    <Section
+      id="sponsors"
+      style={{
+        background: 'linear-gradient(180deg, #07090f 0%, #05070D 54%, #080b11 100%)',
+      }}
+    >
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           label="07 / Sponsors"
@@ -126,8 +177,22 @@ export default function Sponsors() {
                 Support Jordan's Security Community
               </h3>
               <p className="mt-4 max-w-2xl text-sm leading-7" style={{ color: C.muted }}>
-                Sponsor packages are available for companies, communities, universities, and partners who want to support practical security education in Amman.
+                Sponsorship tiers are available for companies, communities, universities, and partners who want to support practical security education in Amman.
               </p>
+              <ul className="mt-5 space-y-2 text-sm leading-6" style={{ color: C.muted }}>
+                <li className="flex gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rotate-45" style={{ background: C.red }} />
+                  Below tiers regard sponsorship only.
+                </li>
+                <li className="flex gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rotate-45" style={{ background: C.red }} />
+                  Support is preferably through indirectly helping the conference, such as paying tickets for speakers, providing swag, or providing infrastructure.
+                </li>
+                <li className="flex gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rotate-45" style={{ background: C.red }} />
+                  If the above option is not feasible, cash support is available.
+                </li>
+              </ul>
             </div>
 
             <div
@@ -140,7 +205,7 @@ export default function Sponsors() {
                     Packages
                   </p>
                   <p className="mt-2 text-sm" style={{ color: C.muted }}>
-                    Platinum, Gold, and Community tiers.
+                    Diamond, Gold, Silver, and Bronze tiers.
                   </p>
                 </div>
                 <div className="border border-white/[0.08] bg-white/[0.025] p-4">
@@ -165,7 +230,7 @@ export default function Sponsors() {
           </div>
         </FadeIn>
 
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {TIERS.map((tier, index) => (
             <TierCard key={tier.tier} tier={tier} index={index} />
           ))}

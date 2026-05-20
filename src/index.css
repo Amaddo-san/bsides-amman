@@ -28,3 +28,140 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #ce2028;
 }
+
+.speaker-glass-card {
+  position: relative;
+  isolation: isolate;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.025) 42%, rgba(206, 32, 40, 0.055)),
+    rgba(8, 11, 17, 0.58);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+    0 22px 50px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px) saturate(135%);
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+}
+
+.speaker-glass-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 18% 8%, rgba(255, 255, 255, 0.22), transparent 28%),
+    radial-gradient(circle at 88% 18%, rgba(206, 32, 40, 0.22), transparent 32%);
+  opacity: 0.72;
+  transition: opacity 220ms ease;
+}
+
+.speaker-glass-card::after {
+  content: '';
+  position: absolute;
+  top: -45%;
+  left: -75%;
+  width: 56%;
+  height: 190%;
+  transform: rotate(24deg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.38),
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  opacity: 0;
+  transition: left 620ms ease, opacity 260ms ease;
+}
+
+.speaker-glass-card:hover::before {
+  opacity: 1;
+}
+
+.speaker-glass-card:hover::after {
+  left: 125%;
+  opacity: 1;
+}
+
+.speaker-portrait-glass {
+  position: relative;
+  background:
+    radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 0.18), transparent 28%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(206, 32, 40, 0.08) 48%, rgba(255, 255, 255, 0.03));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -24px 50px rgba(0, 0, 0, 0.16);
+}
+
+.speaker-portrait-glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.22), transparent 30%, transparent 62%, rgba(255, 255, 255, 0.07));
+  opacity: 0.7;
+}
+
+.faq-glass-item {
+  position: relative;
+  isolation: isolate;
+  border-color: rgba(255, 255, 255, 0.12);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.024) 48%, rgba(206, 32, 40, 0.04)),
+    rgba(8, 11, 17, 0.56);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 18px 44px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(16px) saturate(130%);
+  -webkit-backdrop-filter: blur(16px) saturate(130%);
+  transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+
+.faq-glass-item::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 14% 8%, rgba(255, 255, 255, 0.18), transparent 30%),
+    radial-gradient(circle at 92% 18%, rgba(206, 32, 40, 0.18), transparent 34%);
+  opacity: 0.52;
+  transition: opacity 220ms ease;
+}
+
+.faq-glass-item::after {
+  content: '';
+  position: absolute;
+  top: -75%;
+  left: -42%;
+  width: 32%;
+  height: 240%;
+  transform: rotate(24deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.26), transparent);
+  opacity: 0;
+  transition: left 620ms ease, opacity 260ms ease;
+}
+
+.faq-glass-item:hover,
+.faq-glass-item.is-open {
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 24px 58px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(206, 32, 40, 0.08);
+  transform: translateY(-2px);
+}
+
+.faq-glass-item:hover::before,
+.faq-glass-item.is-open::before {
+  opacity: 0.9;
+}
+
+.faq-glass-item:hover::after,
+.faq-glass-item.is-open::after {
+  left: 112%;
+  opacity: 1;
+}

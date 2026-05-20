@@ -32,18 +32,26 @@ function FAQItem({ item, idx }) {
 
   return (
     <FadeIn delay={idx * 0.05}>
-      <div style={{ border: `1px solid ${open ? C.red + '40' : C.border}`, transition: 'border-color 0.2s' }}>
+      <div className={`faq-glass-item overflow-hidden rounded-lg border ${open ? 'is-open' : ''}`}>
         <button
           type="button"
           onClick={() => setOpen((o) => !o)}
-          className="flex w-full items-center justify-between p-5 text-left"
-          style={{ background: open ? `${C.red}06` : C.bgCard }}
+          className="relative z-10 flex w-full items-center justify-between gap-4 p-5 text-left"
         >
           <span className="pr-4 font-mono text-sm" style={{ color: C.white }}>
             {item.q}
           </span>
-          <motion.div animate={{ rotate: open ? 45 : 0 }} transition={{ duration: 0.25 }}>
-            <ChevronRight size={16} style={{ color: C.dim }} />
+          <motion.div
+            animate={{ rotate: open ? 90 : 0 }}
+            transition={{ duration: 0.25 }}
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border"
+            style={{
+              borderColor: open ? 'rgba(206,32,40,0.34)' : 'rgba(255,255,255,0.11)',
+              background: open ? 'rgba(206,32,40,0.12)' : 'rgba(255,255,255,0.04)',
+              color: open ? C.red : C.dim,
+            }}
+          >
+            <ChevronRight size={16} />
           </motion.div>
         </button>
 
@@ -54,10 +62,15 @@ function FAQItem({ item, idx }) {
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              style={{ overflow: 'hidden', background: C.bgCard }}
+              style={{ overflow: 'hidden' }}
             >
-              <div className="px-5 pb-5">
-                <div className="mb-4 h-px" style={{ background: C.border }} />
+              <div className="relative z-10 px-5 pb-5">
+                <div
+                  className="mb-4 h-px"
+                  style={{
+                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.16), rgba(206,32,40,0.28), transparent)',
+                  }}
+                />
                 <p className="text-sm leading-relaxed" style={{ color: C.muted }}>
                   {item.a}
                 </p>
@@ -72,16 +85,35 @@ function FAQItem({ item, idx }) {
 
 export default function FAQ() {
   return (
-    <Section id="faq" className="flex-1 !pb-10 md:!pb-12" style={{ background: C.bg }}>
-      <SectionHeading
-        label="08 / FAQ"
-        title="Got Questions?"
-        subtitle="Answers to the most common questions about BSides Amman."
-      />
-      <div className="mx-auto max-w-3xl space-y-2">
-        {FAQS.map((item, i) => (
-          <FAQItem key={item.q} item={item} idx={i} />
-        ))}
+    <Section
+      id="faq"
+      className="flex-1 !pb-10 md:!pb-12"
+      style={{
+        background: 'linear-gradient(180deg, #07090f 0%, #05070D 54%, #080b11 100%)',
+      }}
+    >
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="absolute left-1/2 top-16 h-72 w-[680px] -translate-x-1/2 rounded-full blur-[130px]"
+          style={{ background: 'rgba(206,32,40,0.07)' }}
+        />
+        <div
+          className="absolute inset-x-0 top-0 h-px"
+          style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.14), transparent)' }}
+        />
+      </div>
+
+      <div className="relative z-10">
+        <SectionHeading
+          label="08 / FAQ"
+          title="Got Questions?"
+          subtitle="Answers to the most common questions about BSides Amman."
+        />
+        <div className="mx-auto max-w-3xl space-y-3">
+          {FAQS.map((item, i) => (
+            <FAQItem key={item.q} item={item} idx={i} />
+          ))}
+        </div>
       </div>
     </Section>
   );
