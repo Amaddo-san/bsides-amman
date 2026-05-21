@@ -19,7 +19,7 @@ const TEAM = [
   { name: 'Farah Qamhawi', role: 'Organizer', photo: img('farah.jpg'), linkedin: 'https://www.linkedin.com/in/farah-qamhawi?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
   { name: 'Lana Barakat', role: 'Organizer', photo: img('lana.jpg'), linkedin: 'https://www.linkedin.com/in/lana-barakat-748a7b241?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
   { name: 'Shahed Mehdawi', role: 'Media', photo: img('shahed.jpg'), linkedin: 'https://www.linkedin.com/in/shahedmehdawi?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
-  { name: 'Ahmad Abu Tair', role: 'Media', photo: img('ahmad.jpg'), linkedin: 'https://www.linkedin.com/in/ahmad-abu-tair-935209311?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
+  { name: 'Ahmad Abu Tair', role: 'Media / Website Creator', photo: img('ahmad.jpg'), linkedin: 'https://www.linkedin.com/in/ahmad-abu-tair-935209311?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
 ];
 
 const ROLE_STYLES = {
@@ -27,6 +27,8 @@ const ROLE_STYLES = {
   'Advisor': { color: '#22d3ee', glow: 'rgba(34,211,238,0.4)' },
   'Organizer': { color: '#a855f7', glow: 'rgba(168,85,247,0.4)' },
   'Media': { color: '#d4af37', glow: 'rgba(212,175,55,0.2)' },
+ 'Media / Website Creator': { color: '#d4af37', glow: 'rgba(212,175,55,0.2)' },
+
 };
 
 export default function Team() {
@@ -117,7 +119,7 @@ export default function Team() {
                 {member.name}
               </h3>
 
-             <p
+<p
   className="mb-4 text-xs font-mono"
   style={{ color: style.color }}
 >
