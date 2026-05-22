@@ -6,6 +6,9 @@ import soonMark from "../assets/1.png";
 import AbbasCard from "./AbbasCard";
 import HistoryTimeline from "./HistoryTimeline";
 
+const EVENT_DATE = "TBD - 2026";
+const EVENT_LOCATION = "TBD - Amman";
+
 function HeroBackground() {
   return (
     <>
@@ -144,11 +147,11 @@ export default function Hero() {
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-xs font-mono text-zinc-300 backdrop-blur-xl">
               <Calendar size={15} className="text-red-400" />
-              TBA - 2026
+              {EVENT_DATE}
             </div>
             <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-xs font-mono text-zinc-300 backdrop-blur-xl">
               <MapPin size={15} className="text-green-400" />
-              we dont know
+              {EVENT_LOCATION}
             </div>
           </div>
 
@@ -215,11 +218,11 @@ export default function Hero() {
             >
               <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm font-mono text-zinc-300 backdrop-blur-xl">
                 <Calendar size={16} className="text-red-400" />
-                TBA - 2026
+                {EVENT_DATE}
               </div>
               <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm font-mono text-zinc-300 backdrop-blur-xl">
                 <MapPin size={16} className="text-green-400" />
-                we dont know
+                {EVENT_LOCATION}
               </div>
             </motion.div>
 
