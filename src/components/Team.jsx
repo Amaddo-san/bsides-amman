@@ -11,7 +11,7 @@ const TEAM = [
   { name: 'Rami Ahmad', role: 'Advisor', photo: img('rami.jpg'), linkedin: 'https://www.linkedin.com/in/ramiahmad?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
   { name: 'Abdallah Al-Abbadi', role: 'Advisor', photo: img('abdnawaf.jpg'), linkedin: 'https://www.linkedin.com/in/abdullah-nawaf-6ab7301b0?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
   { name: 'Orwa Atyat', role: 'Advisor', photo: img('urwah.jpg'), linkedin: 'https://www.linkedin.com/in/urwah-atiyat-1b9800198?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
-  { name: 'Abdalhameed Dradkeh', role: 'Organizer', photo: img('abd2.png'), linkedin: 'https://www.linkedin.com/in/abdalhmeeddradkeh?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
+  { name: 'Abdalhameed ALdaradkeh', role: 'Organizer', photo: img('abd3.png'), linkedin: 'https://www.linkedin.com/in/abdalhmeeddradkeh?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
   { name: 'Hamza Nour', role: 'Organizer', photo: img('hamza.jpg'), linkedin: 'https://www.linkedin.com/in/hussein-abuali?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
   { name: 'Hussein Abu Ali', role: 'Organizer', photo: img('hussen.jpg'), linkedin: 'https://www.linkedin.com/in/hussein-abuali?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
   { name: 'Abdulrahman Nahhas', role: 'Organizer', photo: img('nahhas.jpg'), linkedin: 'https://www.linkedin.com/in/abdelrahman-al-nahhas-a48564208?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
