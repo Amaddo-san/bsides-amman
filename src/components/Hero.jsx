@@ -6,8 +6,8 @@ import soonMark from "../assets/1.png";
 import AbbasCard from "./AbbasCard";
 import HistoryTimeline from "./HistoryTimeline";
 
-const EVENT_DATE = "TBD - 2026";
-const EVENT_LOCATION = "TBD - Amman";
+const EVENT_DATE = "SEPTEMBER - 2026";
+const EVENT_LOCATION = "UNIVERSITY OF JORDAN - Amman";
 
 function HeroBackground() {
   return (

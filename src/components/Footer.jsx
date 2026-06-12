@@ -93,7 +93,8 @@ export default function Footer() {
               style={{ color: C.muted }}
             >
               <MapPin size={14} className="shrink-0 mt-0.5" style={{ color: C.red }} />
-we dont know            </div>
+              UNIVERSITY OF JORDAN - Amman
+            </div>
           </div>
         </div>
 

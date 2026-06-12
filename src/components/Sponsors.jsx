@@ -156,6 +156,48 @@ export default function Sponsors() {
         />
 
         <FadeIn>
+          <motion.div
+            whileHover={{
+              y: -4,
+              borderColor: 'rgba(200,30,30,0.45)',
+              boxShadow: '0 18px 45px rgba(200,30,30,0.1)',
+            }}
+            transition={{ duration: 0.22 }}
+            className="mb-8 grid overflow-hidden rounded-lg border md:grid-cols-[0.7fr_1.3fr]"
+            style={{
+              background: 'rgba(10,12,18,0.78)',
+              borderColor: 'rgba(255,255,255,0.08)',
+            }}
+          >
+            <div
+              className="flex min-h-48 items-center justify-center border-b bg-white p-8 md:border-b-0 md:border-r"
+              style={{ borderColor: 'rgba(255,255,255,0.08)' }}
+            >
+              <img
+                src={`${import.meta.env.BASE_URL}JOSA.png`}
+                alt="Jordan Open Source Association (JOSA)"
+                className="max-h-28 w-full max-w-xs object-contain"
+              />
+            </div>
+
+            <div className="flex flex-col justify-center p-6 sm:p-8">
+              <p className="font-mono text-[10px] uppercase tracking-[0.24em]" style={{ color: C.red }}>
+                Strategic Partner
+              </p>
+              <h3
+                className="mt-3 text-3xl font-black leading-tight md:text-4xl"
+                style={{ fontFamily: "'Bebas Neue', cursive", color: C.white }}
+              >
+                Jordan Open Source Association
+              </h3>
+              <p className="mt-4 max-w-2xl text-sm leading-7" style={{ color: C.muted }}>
+                Proudly partnering with JOSA to strengthen Jordan's open-source and cybersecurity communities.
+              </p>
+            </div>
+          </motion.div>
+        </FadeIn>
+
+        <FadeIn>
           <div
             className="mb-8 grid overflow-hidden rounded-lg border lg:grid-cols-[1.1fr_0.9fr]"
             style={{
