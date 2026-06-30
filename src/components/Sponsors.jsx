@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Handshake, Mail } from 'lucide-react';
+import { ArrowRight, ExternalLink, Handshake, Mail } from 'lucide-react';
 import { C } from '../constants';
 import { FadeIn, Section, SectionHeading } from './Shared';
 
@@ -69,6 +69,175 @@ const TIERS = [
     ],
   },
 ];
+
+const SUPPORTER_GROUPS = [
+  {
+    label: 'Strategic Partners',
+    title: 'Community & Academic Partners',
+    description: 'Partners helping us build a stronger local ecosystem for security learning, open knowledge, and student communities.',
+    columns: 'lg:grid-cols-2',
+    supporters: [
+      {
+        name: 'Jordan Open Source Association',
+        role: 'Strategic Partner',
+        image: 'JOSA.png',
+        tier: 'Strategic Partner',
+        accent: C.red,
+        href: 'https://josa.ngo/',
+        description:
+          'A Jordanian not-for-profit working toward a better Jordan through openness in technology, open knowledge, privacy, and digital security.',
+      },
+      {
+        name: 'University of Jordan',
+        role: 'Academic Partner',
+        image: 'University of Jordan.png',
+        tier: 'Partnership',
+        accent: C.green,
+        href: 'https://www.ju.edu.jo/',
+        description:
+          'Jordan\'s oldest public university, supporting academic growth, research, and student communities from its campus in Amman.',
+      },
+    ],
+  },
+  {
+    label: 'Diamond Sponsors',
+    title: 'Diamond Sponsors',
+    description: 'Top-tier sponsors supporting the conference experience, community reach, and practical cybersecurity education.',
+    columns: 'lg:grid-cols-2',
+    supporters: [
+      {
+        name: 'Maza',
+        role: 'Diamond Sponsor',
+        image: 'maza.png',
+        tier: 'Diamond',
+        accent: '#7dd3fc',
+        href: 'https://www.maza.vc/',
+        description:
+          'A venture capital firm investing in technical teams building global products in SaaS, enterprise software, AI infrastructure, robotics, and biotech.',
+      },
+      {
+        name: 'OffSec',
+        role: 'Diamond Sponsor',
+        image: 'offsec.png',
+        tier: 'Diamond',
+        accent: '#7dd3fc',
+        href: 'https://www.offsec.com/',
+        description:
+          'A global cybersecurity training and certification provider known for hands-on security education, OSCP, Kali Linux, and practical learning paths.',
+      },
+    ],
+  },
+  {
+    label: 'Gold Sponsor',
+    title: 'Gold Sponsor',
+    description: 'A high-impact sponsor backing hands-on cybersecurity learning for the next generation of practitioners.',
+    columns: 'lg:grid-cols-1',
+    supporters: [
+      {
+        name: 'Hack Defender Academy',
+        role: 'Gold Sponsor',
+        image: 'hackdefender.png',
+        tier: 'Gold',
+        accent: C.amber,
+        href: 'https://www.linkedin.com/company/hack-defender-academy/',
+        description:
+          'A cybersecurity training academy preparing future malware analysts, red team members, reverse engineers, and threat intelligence analysts through CCWD and region-based CTFs.',
+      },
+    ],
+  },
+];
+
+function SupporterCard({ supporter, index, featured = false }) {
+  return (
+    <FadeIn delay={index * 0.08}>
+      <motion.article
+        whileHover={{
+          y: -5,
+          borderColor: `${supporter.accent}80`,
+          boxShadow: `0 18px 45px ${supporter.accent}18`,
+        }}
+        transition={{ duration: 0.22 }}
+        className="flex h-full flex-col overflow-hidden rounded-lg border"
+        style={{
+          background: 'rgba(10,12,18,0.78)',
+          borderColor: 'rgba(255,255,255,0.08)',
+        }}
+      >
+        <div
+          className={`${featured ? 'min-h-52' : 'min-h-44'} flex items-center justify-center border-b bg-white p-7`}
+          style={{ borderColor: 'rgba(255,255,255,0.08)' }}
+        >
+          <img
+            src={`${import.meta.env.BASE_URL}${supporter.image}`}
+            alt={`${supporter.name} logo`}
+            className={`${featured ? 'max-h-32 max-w-sm' : 'max-h-28 max-w-[220px]'} w-full object-contain`}
+          />
+        </div>
+
+        <div className="flex flex-1 flex-col p-5">
+          <p className="font-mono text-[10px] uppercase tracking-[0.22em]" style={{ color: supporter.accent }}>
+            {supporter.tier}
+          </p>
+          <h3 className="mt-2 text-xl font-bold" style={{ color: C.white }}>
+            {supporter.name}
+          </h3>
+          <p className="mt-2 text-sm" style={{ color: C.muted }}>
+            {supporter.role}
+          </p>
+          <p className="mt-4 flex-1 text-sm leading-6" style={{ color: C.muted }}>
+            {supporter.description}
+          </p>
+          <a
+            href={supporter.href}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-5 inline-flex w-fit items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.16em] transition hover:text-white"
+            style={{ color: supporter.accent }}
+          >
+            Visit
+            <ExternalLink size={13} />
+          </a>
+        </div>
+      </motion.article>
+    </FadeIn>
+  );
+}
+
+function SupporterGroup({ group, index }) {
+  return (
+    <div className={index === 0 ? 'mb-8' : 'mb-8 border-t border-white/[0.08] pt-8'}>
+      <FadeIn>
+        <div className="mb-5 grid gap-3 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.24em]" style={{ color: C.red }}>
+              {group.label}
+            </p>
+            <h3
+              className="mt-2 text-3xl font-black leading-tight md:text-4xl"
+              style={{ fontFamily: "'Bebas Neue', cursive", color: C.white }}
+            >
+              {group.title}
+            </h3>
+          </div>
+          <p className="max-w-3xl text-sm leading-6 lg:justify-self-end" style={{ color: C.muted }}>
+            {group.description}
+          </p>
+        </div>
+      </FadeIn>
+
+      <div className={`grid gap-5 ${group.columns}`}>
+        {group.supporters.map((supporter, supporterIndex) => (
+          <SupporterCard
+            key={supporter.name}
+            supporter={supporter}
+            index={supporterIndex}
+            featured={group.supporters.length <= 2}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function TierCard({ tier, index }) {
   return (
@@ -155,47 +324,9 @@ export default function Sponsors() {
           subtitle="Made possible by organizations that believe in community-driven security education."
         />
 
-        <FadeIn>
-          <motion.div
-            whileHover={{
-              y: -4,
-              borderColor: 'rgba(200,30,30,0.45)',
-              boxShadow: '0 18px 45px rgba(200,30,30,0.1)',
-            }}
-            transition={{ duration: 0.22 }}
-            className="mb-8 grid overflow-hidden rounded-lg border md:grid-cols-[0.7fr_1.3fr]"
-            style={{
-              background: 'rgba(10,12,18,0.78)',
-              borderColor: 'rgba(255,255,255,0.08)',
-            }}
-          >
-            <div
-              className="flex min-h-48 items-center justify-center border-b bg-white p-8 md:border-b-0 md:border-r"
-              style={{ borderColor: 'rgba(255,255,255,0.08)' }}
-            >
-              <img
-                src={`${import.meta.env.BASE_URL}JOSA.png`}
-                alt="Jordan Open Source Association (JOSA)"
-                className="max-h-28 w-full max-w-xs object-contain"
-              />
-            </div>
-
-            <div className="flex flex-col justify-center p-6 sm:p-8">
-              <p className="font-mono text-[10px] uppercase tracking-[0.24em]" style={{ color: C.red }}>
-                Strategic Partner
-              </p>
-              <h3
-                className="mt-3 text-3xl font-black leading-tight md:text-4xl"
-                style={{ fontFamily: "'Bebas Neue', cursive", color: C.white }}
-              >
-                Jordan Open Source Association
-              </h3>
-              <p className="mt-4 max-w-2xl text-sm leading-7" style={{ color: C.muted }}>
-                Proudly partnering with JOSA to strengthen Jordan's open-source and cybersecurity communities.
-              </p>
-            </div>
-          </motion.div>
-        </FadeIn>
+        {SUPPORTER_GROUPS.map((group, index) => (
+          <SupporterGroup key={group.title} group={group} index={index} />
+        ))}
 
         <FadeIn>
           <div
