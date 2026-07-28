@@ -73,9 +73,9 @@ const TIERS = [
 const SUPPORTER_GROUPS = [
   {
     label: 'Strategic Partners',
-    title: 'Community & Academic Partners',
-    description: 'Partners helping us build a stronger local ecosystem for security learning, open knowledge, and student communities.',
-    columns: 'lg:grid-cols-2',
+    title: 'Strategic Partners',
+    description: 'Strategic partners helping BSides Amman strengthen national cyber resilience and practical security education.',
+    columns: 'lg:grid-cols-1',
     supporters: [
       {
         name: 'National Cyber Security Center',
@@ -87,11 +87,19 @@ const SUPPORTER_GROUPS = [
         description:
           'Jordan\'s national cybersecurity center, supporting cyber resilience, awareness, and stronger coordination across the local security ecosystem.',
       },
+    ],
+  },
+  {
+    label: 'Community & Academic Partners',
+    title: 'Community & Academic Partners',
+    description: 'Partners helping us build a stronger local ecosystem for security learning, open knowledge, and student communities.',
+    columns: 'lg:grid-cols-3',
+    supporters: [
       {
         name: 'Jordan Open Source Association',
-        role: 'Strategic Partner',
+        role: 'Community Partner',
         image: 'JOSA.png',
-        tier: 'Strategic Partner',
+        tier: 'Community Partner',
         accent: C.red,
         href: 'https://josa.ngo/',
         description:
@@ -106,6 +114,16 @@ const SUPPORTER_GROUPS = [
         href: 'https://www.ju.edu.jo/',
         description:
           'Jordan\'s oldest public university, supporting academic growth, research, and student communities from its campus in Amman.',
+      },
+      {
+        name: 'LeetSpace',
+        role: 'Community Partner',
+        image: 'leetspacelogo_name_down_LSColor (2).png',
+        tier: 'Community Partner',
+        accent: C.white,
+        href: 'https://leetspace.io/',
+        description:
+          'A cybersecurity community hosting CTF events, hands-on activities, workshops, and hackerspaces for security learners across Jordan and MENA.',
       },
     ],
   },
