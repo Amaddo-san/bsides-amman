@@ -78,6 +78,16 @@ const SUPPORTER_GROUPS = [
     columns: 'lg:grid-cols-2',
     supporters: [
       {
+        name: 'National Cyber Security Center',
+        role: 'Strategic Partner',
+        image: 'NCSC.png',
+        tier: 'Strategic Partner',
+        accent: C.red,
+        href: 'https://ncsc.jo/Default/Ar',
+        description:
+          'Jordan\'s national cybersecurity center, supporting cyber resilience, awareness, and stronger coordination across the local security ecosystem.',
+      },
+      {
         name: 'Jordan Open Source Association',
         role: 'Strategic Partner',
         image: 'JOSA.png',
@@ -116,6 +126,16 @@ const SUPPORTER_GROUPS = [
           'A venture capital firm investing in technical teams building global products in SaaS, enterprise software, AI infrastructure, robotics, and biotech.',
       },
       {
+        name: 'Modern Security',
+        role: 'Diamond Sponsor',
+        image: 'modern.jpg',
+        tier: 'Diamond',
+        accent: '#7dd3fc',
+        href: 'https://www.modernsecurity.io/',
+        description:
+          'An AI and cybersecurity training institute focused on practical security education, including hands-on AI security, secure design, and threat modeling.',
+      },
+      {
         name: 'OffSec',
         role: 'Diamond Sponsor',
         image: 'offsec.png',
@@ -142,6 +162,24 @@ const SUPPORTER_GROUPS = [
         href: 'https://www.linkedin.com/company/hack-defender-academy/',
         description:
           'A cybersecurity training academy preparing future malware analysts, red team members, reverse engineers, and threat intelligence analysts through CCWD and region-based CTFs.',
+      },
+    ],
+  },
+  {
+    label: 'Bronze Sponsor',
+    title: 'Bronze Sponsor',
+    description: 'A community supporter helping make practical cybersecurity learning more accessible to the BSides Amman audience.',
+    columns: 'lg:grid-cols-1',
+    supporters: [
+      {
+        name: 'CyberDefenders',
+        role: 'Bronze Sponsor',
+        image: 'cyberdef.png',
+        tier: 'Bronze',
+        accent: '#d97706',
+        href: 'https://cyberdefenders.org/',
+        description:
+          'A blue-team training platform helping SOC analysts and defenders build practical skills through cyber ranges, investigations, and certifications.',
       },
     ],
   },
