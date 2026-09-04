@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { CalendarDays, Clock, MapPin, Radio, ShieldCheck } from 'lucide-react';
 import { C } from '../constants';
 import { FadeIn, Section, SectionHeading } from './Shared';
@@ -7,8 +6,8 @@ import { FadeIn, Section, SectionHeading } from './Shared';
 const DAYS = [
   {
     id: 'day-1',
-    label: 'First Day',
-    date: 'Day 01',
+    label: 'Event Day',
+    date: '19 SEP 2026',
     status: 'Schedule under process',
     accent: '#ef4444',
     location: 'Rooms TBA',
@@ -16,28 +15,13 @@ const DAYS = [
       { time: '--:--', title: 'Loading schedule block', desc: 'Day one timeline is being prepared.' },
       { time: '--:--', title: 'Session details pending', desc: 'Talks, rooms, and timing will be announced soon.' },
       { time: '--:--', title: 'Workshop queue syncing', desc: 'Workshop information is still under process.' },
-      { time: '--:--', title: 'Community slots loading', desc: 'More day one activities are coming soon.' },
-    ],
-  },
-  {
-    id: 'day-2',
-    label: 'Second Day',
-    date: 'Day 02',
-    status: 'Schedule under process',
-    accent: '#22d3ee',
-    location: 'Rooms TBA',
-    events: [
-      { time: '--:--', title: 'Loading schedule block', desc: 'Day two timeline is being prepared.' },
-      { time: '--:--', title: 'Session details pending', desc: 'Activities, rooms, and timing will be announced soon.' },
-      { time: '--:--', title: 'Challenge queue syncing', desc: 'Competition information is still under process.' },
-      { time: '--:--', title: 'Closing slots loading', desc: 'More day two updates are coming soon.' },
+      { time: '--:--', title: 'Community slots loading', desc: 'More event day activities are coming soon.' },
     ],
   },
 ];
 
 export default function Schedule() {
-  const [activeDayId, setActiveDayId] = useState(DAYS[0].id);
-  const activeDay = DAYS.find((day) => day.id === activeDayId) || DAYS[0];
+  const activeDay = DAYS[0];
 
   return (
     <Section
@@ -67,30 +51,24 @@ export default function Schedule() {
       <div className="relative z-10">
         <SectionHeading
           label="03 / Schedule"
-          title="Two-Day Schedule"
-          subtitle="Choose a conference day to view the current schedule status. The full agenda is still being prepared and will be announced soon."
+          title="One-Day Schedule"
+          subtitle="The full agenda for September 19 is still being prepared and will be announced soon."
         />
 
         <FadeIn>
           <div className="mx-auto max-w-5xl">
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-4">
               {DAYS.map((day) => {
-                const isActive = activeDay.id === day.id;
-
                 return (
-                  <motion.button
+                  <motion.div
                     key={day.id}
-                    type="button"
-                    onClick={() => setActiveDayId(day.id)}
                     whileHover={{ y: -5 }}
-                    whileTap={{ scale: 0.98 }}
                     className="group relative overflow-hidden rounded-lg border p-5 text-left transition duration-300 sm:p-6"
                     style={{
-                      background: isActive ? 'rgba(12,18,30,0.9)' : 'rgba(8,12,21,0.72)',
-                      borderColor: isActive ? day.accent : 'rgba(255,255,255,0.1)',
-                      boxShadow: isActive ? `0 0 28px ${day.accent}33` : 'none',
+                      background: 'rgba(12,18,30,0.9)',
+                      borderColor: day.accent,
+                      boxShadow: `0 0 28px ${day.accent}33`,
                     }}
-                    aria-pressed={isActive}
                   >
                     <div
                       className="absolute left-0 top-0 h-[2px] w-full"
@@ -98,7 +76,7 @@ export default function Schedule() {
                     />
                     <div
                       className="pointer-events-none absolute -right-10 -top-16 h-36 w-36 rounded-full blur-3xl transition-opacity"
-                      style={{ background: day.accent, opacity: isActive ? 0.16 : 0.07 }}
+                      style={{ background: day.accent, opacity: 0.16 }}
                     />
 
                     <div className="relative flex items-start justify-between gap-4">
@@ -119,7 +97,7 @@ export default function Schedule() {
                         style={{
                           borderColor: day.accent,
                           color: day.accent,
-                          boxShadow: isActive ? `0 0 18px ${day.accent}55` : 'none',
+                          boxShadow: `0 0 18px ${day.accent}55`,
                         }}
                       >
                         <CalendarDays size={20} />
@@ -136,7 +114,7 @@ export default function Schedule() {
                         {day.location}
                       </span>
                     </div>
-                  </motion.button>
+                  </motion.div>
                 );
               })}
             </div>
@@ -144,7 +122,6 @@ export default function Schedule() {
         </FadeIn>
 
         <FadeIn delay={0.08}>
-          <AnimatePresence mode="wait">
             <motion.div
               key={activeDay.id}
               initial={{ opacity: 0, y: 14 }}
@@ -220,7 +197,6 @@ export default function Schedule() {
                 </div>
               </div>
             </motion.div>
-          </AnimatePresence>
         </FadeIn>
       </div>
     </Section>

@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Calendar, MapPin, ArrowRight } from "lucide-react";
 import logo from "../assets/logo.png";
 import soonMark from "../assets/1.png";
 import AbbasCard from "./AbbasCard";
 import HistoryTimeline from "./HistoryTimeline";
+import { REGISTRATION_URL } from "../constants";
 
-const EVENT_DATE = " SEPTEMBER - 2026";
-const EVENT_LOCATION = "TBD - Amman";
+const EVENT_DATE = "19 - SEPTEMBER - 2026";
+const EVENT_LOCATION = "university of jordan IT college - Amman";
 
 function HeroBackground() {
   return (
@@ -67,7 +67,7 @@ function ComingSoonMarquee() {
                   className="whitespace-nowrap text-2xl font-black uppercase leading-none text-white/95 drop-shadow-[0_0_12px_rgba(255,255,255,0.12)] md:text-4xl lg:text-6xl"
                   style={{ fontFamily: "'Bebas Neue', cursive" }}
                 >
-                  Coming Soon
+                  19 - SEPTEMBER
                 </span>
               </div>
             ))}
@@ -78,45 +78,7 @@ function ComingSoonMarquee() {
   );
 }
 
-function RegisterNotice({ onClose }) {
-  return (
-    <div className="fixed inset-x-4 bottom-6 z-[60]">
-      <motion.div
-        initial={{ opacity: 0, y: 18, scale: 0.96 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        className="mx-auto max-w-md rounded-2xl border border-red-500/30 bg-[#0A0C0E]/95 p-4 text-center shadow-[0_0_35px_rgba(220,38,38,0.25)] backdrop-blur-xl sm:p-5"
-      >
-        <p className="text-xs font-mono font-bold uppercase tracking-[0.16em] text-red-300 sm:text-sm">
-          Registration Coming Soon
-        </p>
-        <p className="mt-3 text-xs leading-6 text-zinc-300 sm:text-sm">
-          Registration will open when the event date and venue are confirmed. Stay tuned for the official BSides Amman 2026 announcement.
-        </p>
-        <button
-          type="button"
-          onClick={onClose}
-          className="mt-4 rounded-full border border-white/10 bg-white/[0.04] px-5 py-2 text-xs font-mono font-bold uppercase tracking-widest text-zinc-300 transition hover:border-red-500/40 hover:bg-red-500/10 hover:text-white"
-        >
-          Got it
-        </button>
-      </motion.div>
-    </div>
-  );
-}
-
 export default function Hero() {
-  const [showRegistrationNotice, setShowRegistrationNotice] = useState(false);
-
-  useEffect(() => {
-    if (!showRegistrationNotice) return undefined;
-
-    const timeoutId = window.setTimeout(() => {
-      setShowRegistrationNotice(false);
-    }, 5000);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [showRegistrationNotice]);
-
   return (
     <section
       id="hero"
@@ -130,7 +92,7 @@ export default function Hero() {
         <div className="text-center">
           <div className="mx-auto mb-5 inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-4 py-2 text-[11px] font-mono uppercase tracking-[0.18em] text-red-300">
             <span className="h-2 w-2 rounded-full bg-red-500 shadow-[0_0_14px_rgba(239,68,68,0.9)]" />
-            Coming Soon - 2026
+            19 - SEP - 2026
           </div>
 
           <img
@@ -156,14 +118,15 @@ export default function Hero() {
           </div>
 
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <button
-              type="button"
-              onClick={() => setShowRegistrationNotice(true)}
+            <a
+              href={REGISTRATION_URL}
+              target="_blank"
+              rel="noreferrer"
               className="group inline-flex items-center gap-2 rounded-full bg-red-600 px-6 py-3.5 text-xs font-mono font-bold uppercase tracking-widest text-white shadow-[0_0_35px_rgba(220,38,38,0.35)] transition-all duration-300 hover:bg-red-500"
             >
               Register Now
               <ArrowRight size={15} className="transition group-hover:translate-x-1" />
-            </button>
+            </a>
 
             <a
               href="#about"
@@ -195,7 +158,7 @@ export default function Hero() {
               className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-4 py-2 text-xs font-mono uppercase tracking-[0.22em] text-red-300 lg:mx-0"
             >
               <span className="h-2 w-2 rounded-full bg-red-500 shadow-[0_0_14px_rgba(239,68,68,0.9)]" />
-              Coming Soon - 2026
+              19 - SEP - 2026
             </motion.div>
 
             <img
@@ -230,14 +193,15 @@ export default function Hero() {
               variants={item}
               className="mt-10 flex flex-wrap justify-center gap-4 lg:justify-start"
             >
-              <button
-                type="button"
-                onClick={() => setShowRegistrationNotice(true)}
+              <a
+                href={REGISTRATION_URL}
+                target="_blank"
+                rel="noreferrer"
                 className="group inline-flex items-center gap-2 rounded-full bg-red-600 px-7 py-4 text-sm font-mono font-bold uppercase tracking-widest text-white shadow-[0_0_35px_rgba(220,38,38,0.35)] transition-all duration-300 hover:-translate-y-1 hover:bg-red-500 hover:shadow-[0_0_45px_rgba(220,38,38,0.55)]"
               >
                 Register Now
                 <ArrowRight size={16} className="transition group-hover:translate-x-1" />
-              </button>
+              </a>
 
               <a
                 href="#about"
@@ -260,10 +224,6 @@ export default function Hero() {
       <div className="hidden lg:block">
         <ComingSoonMarquee />
       </div>
-
-      {showRegistrationNotice && (
-        <RegisterNotice onClose={() => setShowRegistrationNotice(false)} />
-      )}
     </section>
   );
 }

@@ -1,34 +1,18 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { C, NAV_LINKS } from "../constants";
+import { C, NAV_LINKS, REGISTRATION_URL } from "../constants";
 import logo from "../assets/logo.png";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [showRegistrationNotice, setShowRegistrationNotice] = useState(false);
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", fn);
     return () => window.removeEventListener("scroll", fn);
   }, []);
-
-  useEffect(() => {
-    if (!showRegistrationNotice) return undefined;
-
-    const timeoutId = window.setTimeout(() => {
-      setShowRegistrationNotice(false);
-    }, 5000);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [showRegistrationNotice]);
-
-  const showRegisterMessage = () => {
-    setOpen(false);
-    setShowRegistrationNotice(true);
-  };
 
   return (
     <motion.nav
@@ -64,13 +48,14 @@ export default function Navbar() {
             </a>
           ))}
 
-          <button
-            type="button"
-            onClick={showRegisterMessage}
+          <a
+            href={REGISTRATION_URL}
+            target="_blank"
+            rel="noreferrer"
             className="ml-2 rounded-full bg-red-600 px-5 py-2 text-sm font-mono font-bold text-white shadow-[0_0_20px_rgba(220,38,38,0.35)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-red-500 hover:shadow-[0_0_30px_rgba(220,38,38,0.55)]"
           >
             Register -&gt;
-          </button>
+          </a>
         </div>
 
         <button
@@ -109,41 +94,19 @@ export default function Navbar() {
                 </a>
               ))}
 
-              <button
-                type="button"
-                onClick={showRegisterMessage}
+              <a
+                href={REGISTRATION_URL}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => setOpen(false)}
                 className="mt-2 rounded-xl bg-red-600 px-4 py-3 text-center text-sm font-mono font-bold text-white shadow-[0_0_20px_rgba(220,38,38,0.35)] transition-all duration-300 hover:bg-red-500"
               >
                 Register -&gt;
-              </button>
+              </a>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      {showRegistrationNotice && (
-        <div className="fixed inset-x-4 top-20 z-[60]">
-          <motion.div
-            initial={{ opacity: 0, y: -12, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            className="mx-auto max-w-md rounded-2xl border border-red-500/30 bg-[#0A0C0E]/95 p-4 text-center shadow-[0_0_35px_rgba(220,38,38,0.25)] backdrop-blur-xl sm:p-5"
-          >
-            <p className="text-xs font-mono font-bold uppercase tracking-[0.16em] text-red-300 sm:text-sm">
-              Registration Coming Soon
-            </p>
-            <p className="mt-3 text-xs leading-6 text-zinc-300 sm:text-sm">
-              Registration will open when the event date and venue are confirmed. Stay tuned for the official BSides Amman 2026 announcement.
-            </p>
-            <button
-              type="button"
-              onClick={() => setShowRegistrationNotice(false)}
-              className="mt-4 rounded-full border border-white/10 bg-white/[0.04] px-5 py-2 text-xs font-mono font-bold uppercase tracking-widest text-zinc-300 transition hover:border-red-500/40 hover:bg-red-500/10 hover:text-white"
-            >
-              Got it
-            </button>
-          </motion.div>
-        </div>
-      )}
     </motion.nav>
   );
 }

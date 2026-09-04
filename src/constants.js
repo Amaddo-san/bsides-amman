@@ -22,3 +22,5 @@ export const NAV_LINKS = [
   { label: "Sponsors", href: "/sponsors" },
   { label: "FAQ", href: "/faq" },
 ];
+
+export const REGISTRATION_URL = "https://www.secwiser.com/bsides-amman-2026";
