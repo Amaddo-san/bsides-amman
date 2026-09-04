@@ -93,7 +93,7 @@ export default function Footer() {
               style={{ color: C.muted }}
             >
               <MapPin size={14} className="shrink-0 mt-0.5" style={{ color: C.red }} />
-              TBD- Amman
+              19 - SEPTEMBER - 2026 - Amman
             </div>
           </div>
         </div>
