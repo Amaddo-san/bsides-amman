@@ -166,10 +166,10 @@ const SUPPORTER_GROUPS = [
     ],
   },
   {
-    label: 'Gold Sponsor',
-    title: 'Gold Sponsor',
-    description: 'A high-impact sponsor backing hands-on cybersecurity learning for the next generation of practitioners.',
-    columns: 'lg:grid-cols-1',
+    label: 'Gold Sponsors',
+    title: 'Gold Sponsors',
+    description: 'High-impact sponsors backing hands-on cybersecurity learning for the next generation of practitioners.',
+    columns: 'lg:grid-cols-2',
     supporters: [
       {
         name: 'Hack Defender Academy',
@@ -180,6 +180,16 @@ const SUPPORTER_GROUPS = [
         href: 'https://www.linkedin.com/company/hack-defender-academy/',
         description:
           'A cybersecurity training academy preparing future malware analysts, red team members, reverse engineers, and threat intelligence analysts through CCWD and region-based CTFs.',
+      },
+      {
+        name: 'Hack The Box',
+        role: 'Gold Sponsor',
+        image: 'hackthebox.png',
+        tier: 'Gold',
+        accent: C.amber,
+        href: 'https://www.hackthebox.com/',
+        description:
+          'A cybersecurity training platform helping individuals and teams build practical skills through hands-on labs, courses, and capture-the-flag challenges.',
       },
     ],
   },

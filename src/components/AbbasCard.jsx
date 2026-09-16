@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import abbas from "../assets/1.png";
+import EventCountdown from "./EventCountdown";
 
 const messages = [
   "Welcome to BSides Amman 👾",
@@ -91,6 +92,7 @@ const handleMouseLeave = () => {
         <p className="mt-5 text-center text-xs font-mono uppercase tracking-[0.25em] text-zinc-500">
           Click Abbas to talk
         </p>
+        <EventCountdown />
       </div>
     </div>
   );

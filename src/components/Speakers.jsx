@@ -1,14 +1,8 @@
 import { motion } from 'framer-motion';
-import { CalendarClock, Mail, Mic2, UserRound } from 'lucide-react';
+import { Linkedin, Mail, Mic2 } from 'lucide-react';
 import { C } from '../constants';
+import { SPEAKERS } from '../data/speakers';
 import { FadeIn, Section, SectionHeading } from './Shared';
-
-const SPEAKER_CARDS = [
-  { topic: 'Keynote Speaker', track: 'Main Stage' },
-  { topic: 'Technical Speaker', track: 'Research Track' },
-  { topic: 'Workshop Lead', track: 'Hands-on Lab' },
-  { topic: 'Community Speaker', track: 'Community Track' },
-];
 
 export default function Speakers() {
   return (
@@ -33,44 +27,13 @@ export default function Speakers() {
         <SectionHeading
           label="04 / Speakers"
           title="Speakers"
-          subtitle="The speaker lineup is currently being finalized. Confirmed speakers and session information will be published soon."
+          subtitle="Meet the BSidesAmman 2026 speakers and explore their sessions on security research, offensive security, AI, and more."
         />
 
-        <FadeIn>
-          <div
-            className="mx-auto mb-10 flex max-w-3xl flex-col gap-4 rounded-lg border px-5 py-5 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left"
-            style={{
-              background: 'rgba(255,255,255,0.025)',
-              borderColor: 'rgba(255,255,255,0.09)',
-            }}
-          >
-            <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.22em]" style={{ color: C.red }}>
-                Speaker lineup
-              </p>
-              <p className="mt-2 text-sm leading-6" style={{ color: C.muted }}>
-                Profiles, photos, and talk titles are under review.
-              </p>
-            </div>
-
-            <div
-              className="mx-auto inline-flex items-center gap-2 rounded-full border px-4 py-2 font-mono text-[10px] uppercase tracking-[0.14em] sm:mx-0"
-              style={{
-                borderColor: 'rgba(255,255,255,0.1)',
-                color: C.muted,
-                background: 'rgba(255,255,255,0.03)',
-              }}
-            >
-              <CalendarClock size={14} style={{ color: C.red }} />
-              Coming soon
-            </div>
-          </div>
-        </FadeIn>
-
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {SPEAKER_CARDS.map((speaker, i) => (
-            <FadeIn key={speaker.topic} delay={i * 0.05}>
-              <motion.div
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {SPEAKERS.map((speaker, i) => (
+            <FadeIn key={speaker.linkedin} delay={(i % 3) * 0.05} className="min-w-0">
+              <motion.article
                 whileHover={{
                   y: -6,
                   borderColor: 'rgba(255,255,255,0.24)',
@@ -78,52 +41,59 @@ export default function Speakers() {
                     'inset 0 1px 0 rgba(255,255,255,0.22), 0 30px 70px rgba(0,0,0,0.36), 0 0 34px rgba(206,32,40,0.12)',
                 }}
                 transition={{ duration: 0.22 }}
-                className="speaker-glass-card group h-full overflow-hidden rounded-lg border p-5"
+                className="speaker-glass-card group flex h-full flex-col overflow-hidden rounded-lg border p-5"
               >
                 <div
-                  className="speaker-portrait-glass aspect-[4/3] w-full overflow-hidden rounded-md border"
+                  className="speaker-portrait-glass aspect-square w-full shrink-0 overflow-hidden rounded-md border"
                   style={{
                     borderColor: 'rgba(255,255,255,0.13)',
                   }}
                 >
-                  <div className="relative z-10 flex h-full items-center justify-center">
-                    <div
-                      className="flex h-20 w-20 items-center justify-center rounded-full border shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] transition duration-300 group-hover:scale-105"
-                      style={{
-                        background: 'rgba(5,7,13,0.46)',
-                        borderColor: 'rgba(255,255,255,0.2)',
-                        color: 'rgba(255,255,255,0.58)',
-                        backdropFilter: 'blur(10px)',
-                      }}
-                    >
-                      <UserRound size={34} strokeWidth={1.6} />
-                    </div>
-                  </div>
+                  <img
+                    src={`${import.meta.env.BASE_URL}bsides%20speakers/${speaker.photo}`}
+                    alt={speaker.name}
+                    loading="lazy"
+                    decoding="async"
+                    width="600"
+                    height="600"
+                    className="h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-105 motion-reduce:transform-none"
+                  />
                 </div>
 
-                <div className="pt-5">
-                  <div className="mb-3 flex items-center justify-between gap-3">
-                    <span
-                      className="rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-[0.12em]"
-                      style={{
-                        borderColor: 'rgba(206,32,40,0.28)',
-                        color: 'rgba(248,113,113,0.9)',
-                        background: 'rgba(206,32,40,0.08)',
-                      }}
-                    >
-                      {speaker.track}
-                    </span>
-                    <Mic2 size={16} style={{ color: 'rgba(255,255,255,0.32)' }} />
-                  </div>
-
-                  <h3 className="text-lg font-bold" style={{ color: C.white }}>
-                    {speaker.topic}
+                <div className="flex flex-1 flex-col pt-5">
+                  <h3 className="text-xl font-bold" style={{ color: C.white }}>
+                    {speaker.name}
                   </h3>
-                  <p className="mt-2 text-sm leading-6" style={{ color: C.dim }}>
-                    Speaker profile will be announced soon.
+                  <p className="mt-2 text-sm leading-6" style={{ color: C.muted }}>
+                    {speaker.role}
                   </p>
+                  <div className="mt-5 flex-1 border-t border-white/10 pt-5">
+                    <p className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-red-400">
+                      <Mic2 size={14} aria-hidden="true" />
+                      Session topic
+                    </p>
+                    <h4 className="mt-3 text-base font-semibold leading-6" style={{ color: C.white }}>
+                      {speaker.title}
+                    </h4>
+                    {speaker.coPresenter && (
+                      <p className="mt-2 text-xs leading-5 text-red-300">Co-presented with {speaker.coPresenter}</p>
+                    )}
+                    <p className="mt-3 text-sm leading-6" style={{ color: C.muted }}>
+                      {speaker.description}
+                    </p>
+                  </div>
+                  <a
+                    href={speaker.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${speaker.name} on LinkedIn (opens in a new tab)`}
+                    className="relative z-10 mt-6 inline-flex min-h-11 items-center justify-center gap-2 self-start rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-white transition hover:border-red-400/60 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-red-400"
+                  >
+                    <Linkedin size={15} aria-hidden="true" />
+                    LinkedIn profile
+                  </a>
                 </div>
-              </motion.div>
+              </motion.article>
             </FadeIn>
           ))}
         </div>
