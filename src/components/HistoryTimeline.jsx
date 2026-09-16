@@ -1,6 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { CalendarDays, Users } from "lucide-react";
 import abbasSprite from "../assets/abbas-sprite.png";
+import { ABBAS_FRAMES as SPRITE_SETS, getAbbasDirection as getDirection } from './abbasAnimation';
 
 const EDITIONS = [
   {
@@ -39,31 +42,15 @@ const EDITIONS = [
   {
     year: "2026",
     edition: "Edition IV",
-    desc: "The next operation is classified. CFP and registration details incoming.",
-    tags: ["Coming Soon"],
-    date: "2026",
-    location: "TBA",
-    status: "Classified",
+    desc: "The fourth edition brings Jordan’s security community together for technical talks, hands-on villages, and practical research.",
+    tags: ["Technical Talks", "Hands-on Villages", "Security Research"],
+    date: "19 September 2026",
+    location: "University of Jordan, IT College — Amman",
+    status: "Upcoming",
     future: true,
     pos: { x: 83, y: 38 },
   },
 ];
-
-const SPRITE_SETS = {
-  idle: [[-3, -3]],
-  alert: [[-7, -3]],
-  scratchSelf: [[-5, 0], [-6, 0], [-7, 0]],
-  tired: [[-3, -2]],
-  sleeping: [[-2, 0], [-2, -1]],
-  N: [[-1, -2], [-1, -3]],
-  NE: [[0, -2], [0, -3]],
-  E: [[-3, 0], [-3, -1]],
-  SE: [[-5, -1], [-5, -2]],
-  S: [[-6, -3], [-7, -2]],
-  SW: [[-5, -3], [-6, -1]],
-  W: [[-4, -2], [-4, -3]],
-  NW: [[-1, 0], [-1, -1]],
-};
 
 const MAP_HEIGHT = 260;
 const MAP_HEIGHT_MOBILE = 300;
@@ -72,138 +59,83 @@ const ABBAS_TARGET_OFFSET_Y = -34;
 const ABBAS_MAX_SPEED = 20;
 const ABBAS_EASING_SPEED = 0.50;
 
-function getDirection(dx, dy) {
-  const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
-
-  if (angle > -22.5 && angle <= 22.5) return "E";
-  if (angle > 22.5 && angle <= 67.5) return "SE";
-  if (angle > 67.5 && angle <= 112.5) return "S";
-  if (angle > 112.5 && angle <= 157.5) return "SW";
-  if (angle > 157.5 || angle <= -157.5) return "W";
-  if (angle > -157.5 && angle <= -112.5) return "NW";
-  if (angle > -112.5 && angle <= -67.5) return "N";
-  return "NE";
-}
-
 function HistoryNode({ edition, isActive, onClick }) {
-  const muted = edition.future;
-  const ringColor = muted
-    ? "rgba(255,255,255,0.12)"
-    : isActive
-      ? "rgba(200,30,30,0.5)"
-      : "rgba(200,30,30,0.25)";
-  const coreGlow = isActive ? "0 0 24px rgba(200,30,30,0.72)" : "0 0 14px rgba(200,30,30,0.36)";
-
+  const accent = edition.future ? '#f4bd50' : '#f87171';
   return (
     <button
       type="button"
       onClick={onClick}
-      className="group absolute z-20 -translate-x-1/2 -translate-y-1/2 focus:outline-none"
-      style={{ left: `${edition.pos.x}%`, top: `${edition.pos.y}%` }}
-      aria-label={`BSides Amman ${edition.edition} ${edition.year}`}
+      className="group absolute z-20 -translate-x-1/2 -translate-y-1/2 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-white"
+      style={{ left: edition.pos.x + '%', top: edition.pos.y + '%' }}
+      aria-label={'BSides Amman ' + edition.edition + ' ' + edition.year}
+      aria-pressed={isActive}
+      aria-controls="history-edition-details"
     >
       <div
-        className="relative flex h-11 w-11 items-center justify-center rounded-full border bg-[#07090f]/80 transition duration-300 sm:h-14 sm:w-14"
-        style={{ borderColor: ringColor }}
+        className="relative flex h-11 w-11 items-center justify-center rounded-full border bg-[#090c13] transition duration-300 group-hover:scale-110 sm:h-14 sm:w-14 motion-reduce:transition-none"
+        style={{ borderColor: isActive ? accent : edition.future ? '#80602c' : '#703337', boxShadow: isActive ? '0 0 26px ' + accent + '30' : 'none' }}
       >
+        <span className="absolute inset-[5px] rounded-full border" style={{ borderColor: accent + '40' }} />
+        {edition.future && <span className="history-node-pulse absolute inset-0 rounded-full border border-[#f4bd50]/40" />}
         <span
-          className="absolute inset-[6px] rounded-full border"
-          style={{ borderColor: muted ? "rgba(255,255,255,0.08)" : "rgba(200,30,30,0.22)", borderWidth: 0.5 }}
-        />
-
-        {!muted && (
-          <>
-            <span
-              className="absolute inset-0 rounded-full border"
-              style={{
-                animation: "historyNodeRipple 2s ease-out infinite",
-                borderColor: isActive ? "rgba(200,30,30,0.45)" : "rgba(200,30,30,0.2)",
-              }}
-            />
-            <span
-              className="absolute inset-0 rounded-full border"
-              style={{
-                animation: "historyNodeRipple 2s ease-out infinite 0.7s",
-                borderColor: isActive ? "rgba(200,30,30,0.32)" : "rgba(200,30,30,0.14)",
-              }}
-            />
-          </>
-        )}
-
-        <span
-          className="relative z-10 flex h-6 w-6 items-center justify-center rounded-full font-mono text-[9px] font-bold sm:h-7 sm:w-7 sm:text-[10px]"
-          style={{
-            background: muted ? "#111" : "#c81e1e",
-            color: muted ? "rgba(255,255,255,0.28)" : "#fff",
-            boxShadow: muted ? "none" : coreGlow,
-          }}
+          className="relative z-10 flex h-7 w-7 items-center justify-center rounded-full font-mono text-[11px] font-bold sm:h-8 sm:w-8"
+          style={{ background: edition.future ? '#f4bd50' : '#c81e1e', color: edition.future ? '#171007' : '#fff' }}
         >
           {edition.year.slice(2)}
         </span>
       </div>
-
-      <div className="absolute left-1/2 top-full mt-1.5 -translate-x-1/2 whitespace-nowrap text-center sm:mt-2">
-        <span
-          className="block font-mono text-[11px] font-bold leading-none sm:text-[13px]"
-          style={{ color: muted ? "rgba(255,255,255,0.22)" : "#c81e1e" }}
-        >
-          {edition.year}
+      <div className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap text-center">
+        <span className="block font-mono text-xs font-bold leading-none sm:text-sm" style={{ color: accent }}>{edition.year}</span>
+        <span className="mt-1.5 block font-mono text-[8px] uppercase tracking-[0.1em] text-zinc-400 sm:text-[10px]">
+          {edition.future ? 'Next edition' : edition.edition}
         </span>
-        <span className="mt-1 hidden font-mono text-[8px] uppercase tracking-[0.2em] text-white/20 sm:block">
-          {edition.edition}
-        </span>
+        {isActive && <span className="mx-auto mt-2 block h-0.5 w-5 rounded-full" style={{ background: accent }} />}
       </div>
     </button>
   );
 }
 
 function DetailPanel({ edition }) {
+  const accent = edition.future ? '#f4bd50' : '#f87171';
   return (
-    <div className="relative overflow-hidden border border-[#141414] border-l-[#c81e1e] bg-[#0a0c12] px-4 py-4 sm:px-5" style={{ borderLeftWidth: 2 }}>
-      <span
-        className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 -rotate-12 text-5xl font-black uppercase sm:right-8 sm:text-7xl"
-        style={{ fontFamily: "'Bebas Neue', cursive", color: "rgba(200,30,30,0.04)" }}
-      >
-        Classified
+    <div className="relative overflow-hidden rounded-lg border border-white/10 bg-[#0c1018] px-5 py-6 sm:px-7" style={{ borderLeftWidth: 3, borderLeftColor: accent }}>
+      <span aria-hidden="true" className="pointer-events-none absolute bottom-0 right-4 text-6xl font-black uppercase sm:right-7 sm:text-8xl" style={{ fontFamily: "'Bebas Neue', cursive", color: 'rgba(255,255,255,0.025)' }}>
+        BSides Amman
       </span>
-
-      <div className="relative z-10 flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-5">
-        <span
-          className="shrink-0 text-[54px] font-black leading-none sm:text-[64px]"
-          style={{ fontFamily: "'Bebas Neue', cursive", color: "rgba(200,30,30,0.2)" }}
-        >
-          {edition.year}
-        </span>
-
-        <div className="min-w-0 flex-1 pt-0 sm:pt-1">
-          <p className="font-mono text-[9px] uppercase tracking-[0.26em] text-[#c81e1e]">
-            {edition.edition}
+      <div className="relative z-10 flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-7">
+        <span className="shrink-0 text-6xl font-black leading-none sm:text-7xl" style={{ fontFamily: "'Bebas Neue', cursive", color: accent }}>{edition.year}</span>
+        <div className="min-w-0 flex-1 sm:pt-1">
+          <p className="font-mono text-[11px] uppercase tracking-[0.2em]" style={{ color: accent }}>
+            {edition.edition}{edition.future ? ' / Next edition' : ' / From the archive'}
           </p>
-          <p className="mt-2 max-w-3xl text-[12px] leading-6 text-zinc-500 sm:text-[13px]">
-            {edition.desc}
-          </p>
-
-          <div className="mt-3 flex flex-wrap gap-2">
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-zinc-300">{edition.desc}</p>
+          <div className="mt-4 flex flex-wrap gap-2">
             {edition.tags.map((tag) => (
-              <span
-                key={tag}
-                className="border border-red-500/25 bg-red-950/20 px-2 py-1 font-mono text-[8px] uppercase tracking-wider text-red-300/70 sm:px-2.5 sm:text-[9px]"
-              >
-                {tag}
-              </span>
+              <span key={tag} className="rounded border border-white/10 bg-white/[0.03] px-2.5 py-1.5 font-mono text-[10px] text-zinc-300">{tag}</span>
             ))}
           </div>
-
-          <div className="mt-4 grid gap-2 font-mono text-[8px] uppercase tracking-[0.16em] text-white/15 sm:grid-cols-3 sm:text-[9px] sm:tracking-[0.18em]">
-            <span>DATE <b className="font-normal text-white/25">{edition.date}</b></span>
-            <span>LOCATION <b className="font-normal text-white/25">{edition.location}</b></span>
-            <span>
-              STATUS{" "}
-              <b className={`font-normal ${edition.future ? "text-red-400/70" : "text-white/25"}`}>
-                {edition.status}
-              </b>
-            </span>
-          </div>
+          <dl className="mt-5 grid gap-4 border-t border-white/10 pt-5 sm:grid-cols-[1fr_1.8fr_0.8fr]">
+            {[
+              ['Date', edition.date],
+              ['Location', edition.location],
+              ['Status', edition.status],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <dt className="font-mono text-[10px] uppercase tracking-[0.15em] text-zinc-400">{label}</dt>
+                <dd className="mt-1.5 text-sm leading-6 text-zinc-200" style={label === 'Status' ? { color: accent } : undefined}>{value}</dd>
+              </div>
+            ))}
+          </dl>
+          {edition.future && (
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link to="/schedule" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-[#f4bd50] px-5 py-3 text-sm font-bold text-[#171007] transition hover:bg-[#ffd27d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f4bd50]">
+                <CalendarDays size={16} aria-hidden="true" /> Schedule
+              </Link>
+              <Link to="/speakers" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-white/20 px-5 py-3 text-sm font-semibold text-zinc-100 transition hover:border-white/40 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+                <Users size={16} aria-hidden="true" /> Meet the speakers
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -211,12 +143,13 @@ function DetailPanel({ edition }) {
 }
 
 export default function HistoryTimeline() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(EDITIONS.length - 1);
+  const reducedMotion = useReducedMotion();
   const mapRef = useRef(null);
   const canvasRef = useRef(null);
   const abbasRef = useRef(null);
   const rafRef = useRef(null);
-  const activeIndexRef = useRef(0);
+  const activeIndexRef = useRef(EDITIONS.length - 1);
   const posRef = useRef({ x: 0, y: 0 });
   const targetRef = useRef({ x: 0, y: 0 });
   const idleTimeRef = useRef(0);
@@ -248,6 +181,7 @@ export default function HistoryTimeline() {
 
   const paintAbbas = useCallback(() => {
     if (!abbasRef.current) return;
+    abbasRef.current.style.visibility = "visible";
     abbasRef.current.style.left = `${posRef.current.x}px`;
     abbasRef.current.style.top = `${posRef.current.y}px`;
   }, []);
@@ -306,12 +240,12 @@ export default function HistoryTimeline() {
     });
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const map = mapRef.current;
     if (!map) return undefined;
 
     const initialize = () => {
-      const start = getNodePixelPosition(EDITIONS[0]);
+      const start = getNodePixelPosition(EDITIONS[activeIndexRef.current]);
       posRef.current = start;
       targetRef.current = start;
       paintAbbas();
@@ -319,20 +253,29 @@ export default function HistoryTimeline() {
       drawCanvas();
     };
 
-    const timeoutId = window.setTimeout(initialize, 150);
+    initialize();
     const resizeObserver = new ResizeObserver(() => {
       drawCanvas();
       targetRef.current = getNodePixelPosition(EDITIONS[activeIndexRef.current]);
+      if (reducedMotion) {
+        posRef.current = targetRef.current;
+        paintAbbas();
+      }
     });
     resizeObserver.observe(map);
 
     return () => {
-      window.clearTimeout(timeoutId);
       resizeObserver.disconnect();
     };
-  }, [drawCanvas, getNodePixelPosition, paintAbbas, setSprite]);
+  }, [drawCanvas, getNodePixelPosition, paintAbbas, setSprite, reducedMotion]);
 
   useEffect(() => {
+    if (reducedMotion) {
+      posRef.current = targetRef.current;
+      paintAbbas();
+      setSprite("idle", 0);
+      return;
+    }
     const tick = (now) => {
       rafRef.current = window.requestAnimationFrame(tick);
       if (now - lastTickRef.current < 100) return;
@@ -407,11 +350,16 @@ export default function HistoryTimeline() {
     return () => {
       if (rafRef.current) window.cancelAnimationFrame(rafRef.current);
     };
-  }, [paintAbbas, setSprite]);
+  }, [paintAbbas, setSprite, reducedMotion]);
 
   const handleNodeClick = (index) => {
     setActiveIndex(index);
     targetRef.current = getNodePixelPosition(EDITIONS[index]);
+    if (reducedMotion) {
+      posRef.current = targetRef.current;
+      paintAbbas();
+      setSprite("idle", 0);
+    }
     idleTimeRef.current = 0;
     idleAnimationRef.current = null;
     idleAnimationFrameRef.current = 0;
@@ -421,20 +369,14 @@ export default function HistoryTimeline() {
     <div className="relative z-10 w-full border-y border-white/[0.06] bg-[#07090f]/85">
       <style>
         {`
-          @keyframes historyScan {
-            0% { transform: translateY(-12px); opacity: 0; }
-            12% { opacity: 1; }
-            100% { transform: translateY(calc(var(--history-map-height) + 12px)); opacity: 0; }
-          }
-
-          @keyframes historyRouteSignal {
-            from { stroke-dashoffset: 36; }
-            to { stroke-dashoffset: 0; }
-          }
-
           @keyframes historyNodeRipple {
-            from { transform: scale(0.85); opacity: 0.8; }
-            to { transform: scale(1.7); opacity: 0; }
+            from { transform: scale(1); opacity: 0.5; }
+            to { transform: scale(1.5); opacity: 0; }
+          }
+
+          .history-node-pulse { animation: historyNodeRipple 3.5s ease-out infinite; }
+          @media (prefers-reduced-motion: reduce) {
+            .history-node-pulse { animation: none; }
           }
 
           .history-map {
@@ -450,14 +392,16 @@ export default function HistoryTimeline() {
       </style>
 
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 pb-2 pt-4 sm:gap-4 sm:px-6">
-        <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-white/25">
+        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-400">
           // Event History
         </span>
         <div className="h-px flex-1 bg-white/[0.05]" />
-        <span className="font-mono text-[8px] tracking-[0.16em] text-white/20 sm:text-[9px] sm:tracking-[0.2em]">
+        <span className="font-mono text-[8px] tracking-[0.16em] text-zinc-400 sm:text-[9px] sm:tracking-[0.2em]">
           2019 - 2026
         </span>
       </div>
+
+      <p className="mx-auto max-w-7xl px-4 pb-4 pt-1 text-xs text-zinc-400 sm:px-6">Choose a year to explore</p>
 
       <div className="mx-auto max-w-7xl px-3 sm:px-6">
         <div
@@ -471,10 +415,7 @@ export default function HistoryTimeline() {
           }}
         >
           <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 z-0" />
-          <span
-            className="pointer-events-none absolute left-0 right-0 top-0 z-10 h-0.5 bg-red-500/10"
-            style={{ animation: "historyScan 4s linear infinite" }}
-          />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(ellipse at 83% 38%, rgba(244,189,80,0.075), transparent 38%)" }} />
 
           <svg
             className="pointer-events-none absolute inset-0 z-10 h-full w-full"
@@ -499,11 +440,9 @@ export default function HistoryTimeline() {
             <path
               d={ROUTE_PATH}
               fill="none"
-              stroke="rgba(200,30,30,0.58)"
-              strokeDasharray="12 24"
+              stroke="rgba(239,68,68,0.6)"
               strokeWidth="1.6"
               strokeLinecap="round"
-              style={{ animation: "historyRouteSignal 2.8s linear infinite", willChange: "stroke-dashoffset" }}
             />
           </svg>
 
@@ -521,6 +460,7 @@ export default function HistoryTimeline() {
             className="pointer-events-none absolute z-30 -translate-x-1/2 -translate-y-1/2"
             aria-hidden="true"
             style={{
+              visibility: "hidden",
               width: 32,
               height: 32,
               imageRendering: "pixelated",
@@ -533,14 +473,14 @@ export default function HistoryTimeline() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-3 py-4 sm:px-6">
+      <div id="history-edition-details" aria-live="polite" aria-atomic="true" className="mx-auto max-w-7xl px-3 py-4 sm:px-6">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeEdition.year}
-            initial={{ opacity: 0, y: 6 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.3 }}
+            exit={{ opacity: 0, y: reducedMotion ? 0 : -6 }}
+            transition={{ duration: reducedMotion ? 0 : 0.2 }}
           >
             <DetailPanel edition={activeEdition} />
           </motion.div>
