@@ -74,4 +74,27 @@ export const SPEAKERS = [
     description: 'A look into Wi-Fi channel sensing, how it works, and its potential applications beyond traditional wireless communication.',
     coPresenter: 'Yousef Kitaneh',
   },
+  {
+    name: 'Razan Bassah',
+    role: 'Chief Risk Officer and Security & Compliance Consultant at CrossRealms International',
+    photo: 'razan.png',
+    linkedin: 'https://www.linkedin.com/in/razan-bassah-5b160397/',
+    title: 'From Alert to Action: Incident Response and Defense in Practice',
+    description: 'A real-world phishing-driven compromise, from the first alert to containment, root cause, remediation, and the lessons learned along the way.',
+  },
+  {
+    name: 'Tareq Kirresh',
+    role: 'CEO at Razeen',
+    photo: 'tariq.png',
+    linkedin: 'https://www.linkedin.com/in/tareqkirresh/',
+    title: 'Harness Engineering',
+    description: 'A session exploring harness engineering and its role in security research and testing.',
+  },
+  {
+    name: 'Majd AlAsfar',
+    role: 'Application Security Engineer',
+    photo: 'MAJD.png',
+    title: 'Crossing the Android Bridge',
+    description: 'Diving into Android and mobile application security from an AppSec perspective.',
+  },
 ];

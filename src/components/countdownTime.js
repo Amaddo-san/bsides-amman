@@ -1,5 +1,5 @@
 // Event opening in Amman, independent of the unpublished schedule page.
-export const EVENT_START_AT = '2026-09-19T09:00:00+03:00';
+export const EVENT_START_AT = '2026-09-19T09:30:00+03:00';
 const eventStart = Date.parse(EVENT_START_AT);
 
 export function getEventCountdown(now = Date.now()) {

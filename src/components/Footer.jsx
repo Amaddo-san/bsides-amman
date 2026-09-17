@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Mail, MapPin, Linkedin, Twitter, Youtube, Instagram, Shield } from 'lucide-react';
 import { C, NAV_LINKS } from '../constants';
 import logo from "../assets/logo.png";
@@ -58,13 +59,13 @@ export default function Footer() {
             </h4>
             <div className="grid grid-cols-2 gap-y-2 gap-x-4">
               {NAV_LINKS.map(l => (
-               <a
+               <Link
   key={l.href}
-  href={l.href}
+  to={l.href}
   className="text-sm font-mono transition-colors duration-200 text-zinc-400 hover:text-white"
 >
                   {l.label}
-                </a>
+                </Link>
               ))}
             </div>
           </div>

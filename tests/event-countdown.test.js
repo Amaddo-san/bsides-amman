@@ -3,12 +3,12 @@ import assert from 'node:assert/strict';
 import { EVENT_START_AT, getEventCountdown } from '../src/components/countdownTime.js';
 
 test('countdown targets the agenda opening in Amman, not the visitor timezone', () => {
-  assert.equal(new Date(EVENT_START_AT).toISOString(), '2026-09-19T06:00:00.000Z');
+  assert.equal(new Date(EVENT_START_AT).toISOString(), '2026-09-19T06:30:00.000Z');
   assert.deepEqual(getEventCountdown(Date.parse('2026-09-12T04:57:56Z')), {
-    totalSeconds: 608524,
+    totalSeconds: 610324,
     days: 7,
     hours: 1,
-    minutes: 2,
+    minutes: 32,
     seconds: 4,
   });
 });

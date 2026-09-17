@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { C, NAV_LINKS, REGISTRATION_URL } from "../constants";
@@ -7,6 +8,9 @@ import logo from "../assets/logo.png";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const location = useLocation();
+
+  useLayoutEffect(() => { setOpen(false); }, [location.key]);
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40);
@@ -37,15 +41,15 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-2 py-2 backdrop-blur-xl md:flex">
           {NAV_LINKS.map((l) => (
-            <a
+            <Link
               key={l.href}
-              href={l.href}
+              to={l.href}
               className="group relative rounded-full px-4 py-2 text-sm font-mono tracking-wide text-zinc-400 transition-all duration-300 hover:text-white"
             >
               <span className="relative z-10">{l.label}</span>
               <span className="absolute inset-0 rounded-full bg-white/[0.06] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               <span className="absolute bottom-1 left-1/2 h-[2px] w-0 -translate-x-1/2 rounded-full bg-red-500 transition-all duration-300 group-hover:w-6" />
-            </a>
+            </Link>
           ))}
 
           <a
@@ -64,6 +68,7 @@ export default function Navbar() {
           onClick={() => setOpen((o) => !o)}
           style={{ color: C.white }}
           aria-label="Toggle navigation"
+          aria-expanded={open}
         >
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
@@ -84,14 +89,14 @@ export default function Navbar() {
           >
             <div className="flex flex-col gap-2 px-4 py-4">
               {NAV_LINKS.map((l) => (
-                <a
+                <Link
                   key={l.href}
-                  href={l.href}
+                  to={l.href}
                   onClick={() => setOpen(false)}
                   className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm font-mono text-zinc-300 transition-all duration-300 hover:border-red-500/40 hover:bg-red-500/10 hover:text-white"
                 >
                   {l.label}
-                </a>
+                </Link>
               ))}
 
               <a

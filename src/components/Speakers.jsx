@@ -32,7 +32,7 @@ export default function Speakers() {
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {SPEAKERS.map((speaker, i) => (
-            <FadeIn key={speaker.linkedin} delay={(i % 3) * 0.05} className="min-w-0">
+            <FadeIn key={speaker.name} delay={(i % 3) * 0.05} className="min-w-0">
               <motion.article
                 whileHover={{
                   y: -6,
@@ -78,11 +78,13 @@ export default function Speakers() {
                     {speaker.coPresenter && (
                       <p className="mt-2 text-xs leading-5 text-red-300">Co-presented with {speaker.coPresenter}</p>
                     )}
-                    <p className="mt-3 text-sm leading-6" style={{ color: C.muted }}>
-                      {speaker.description}
-                    </p>
+                    {speaker.description && (
+                      <p className="mt-3 text-sm leading-6" style={{ color: C.muted }}>
+                        {speaker.description}
+                      </p>
+                    )}
                   </div>
-                  <a
+                  {speaker.linkedin && <a
                     href={speaker.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -91,7 +93,7 @@ export default function Speakers() {
                   >
                     <Linkedin size={15} aria-hidden="true" />
                     LinkedIn profile
-                  </a>
+                  </a>}
                 </div>
               </motion.article>
             </FadeIn>
