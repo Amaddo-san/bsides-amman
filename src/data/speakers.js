@@ -94,6 +94,7 @@ export const SPEAKERS = [
     name: 'Majd AlAsfar',
     role: 'Application Security Engineer',
     photo: 'MAJD.png',
+    linkedin: 'https://www.linkedin.com/in/majd-alasfar-117467208/',
     title: 'Crossing the Android Bridge',
     description: 'Diving into Android and mobile application security from an AppSec perspective.',
   },
